@@ -120,7 +120,7 @@ export default function ServicePage({ params }: ServicePageProps) {
                     Pricing Information
                   </h3>
                   <p className="text-gray-700">{service.pricingHint}</p>
-                  <Button href="/#contact" variant="accent" size="sm" className="mt-4">
+                  <Button href="/quote" variant="accent" size="sm" className="mt-4">
                     Get Custom Quote
                   </Button>
                 </div>
@@ -151,7 +151,7 @@ export default function ServicePage({ params }: ServicePageProps) {
                 <p className="text-white/90 mb-6">
                   Tell us about your event and receive a personalized proposal within 24-48 hours.
                 </p>
-                <Button href="/#contact" variant="secondary" size="lg" className="w-full mb-4">
+                <Button href="/quote" variant="secondary" size="lg" className="w-full mb-4">
                   Get Free Quote
                 </Button>
                 <Button
@@ -222,7 +222,7 @@ export default function ServicePage({ params }: ServicePageProps) {
             <p className="text-xl text-white/90 mb-8">
               With over 17 years of experience and 600+ events annually, we have the expertise to make your vision a reality.
             </p>
-            <Button href="/#contact" variant="secondary" size="lg">
+            <Button href="/quote" variant="secondary" size="lg">
               Start Planning Today
             </Button>
           </div>

@@ -83,7 +83,7 @@ export default function EventTypePage({ params }: EventPageProps) {
               {event.description}
             </p>
             <div>
-              <Button href="/#contact" variant="secondary" size="lg">
+              <Button href="/quote" variant="secondary" size="lg">
                 Get Free Quote
               </Button>
             </div>
@@ -279,7 +279,7 @@ export default function EventTypePage({ params }: EventPageProps) {
               With over 17 years of experience and 600+ events annually, we have the expertise to make your {event.title.toLowerCase()} event unforgettable.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button href="/#contact" variant="secondary" size="lg">
+              <Button href="/quote" variant="secondary" size="lg">
                 Get Free Quote
               </Button>
               <Button

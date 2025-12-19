@@ -150,7 +150,7 @@ export function Hero() {
 
           {/* CTA Buttons */}
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-14">
-            <Button href="/#contact" size="lg" variant="accent">
+            <Button href="/quote" size="lg" variant="accent">
               Get Your Free Quote
             </Button>
             <Button href="/portfolio" size="lg" variant="outline" className="border-white text-white hover:bg-white hover:text-brand-primary">

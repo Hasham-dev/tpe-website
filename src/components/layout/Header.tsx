@@ -144,7 +144,7 @@ export function Header() {
                 </div>
               </div>
 
-              <Button href="/#contact" size="sm">
+              <Button href="/quote" size="sm">
                 Get Quote
               </Button>
             </div>
@@ -235,7 +235,7 @@ export function Header() {
               <Mail size={18} />
               {SITE_CONFIG.email}
             </a>
-            <Button href="/#contact" className="w-full mt-4">
+            <Button href="/quote" className="w-full mt-4">
               Get Quote
             </Button>
           </div>

@@ -36,7 +36,7 @@ export default function ServicesPage() {
             <p className="text-xl text-white/90 mb-8">
               One company. Every service. From planning to production, we own it all so your event is perfect.
             </p>
-            <Button href="/#contact" variant="secondary" size="lg">
+            <Button href="/quote" variant="secondary" size="lg">
               Get Free Quote
             </Button>
           </div>
@@ -133,7 +133,7 @@ export default function ServicesPage() {
               Tell us about your event and receive a personalized proposal within 24-48 hours.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button href="/#contact" variant="secondary" size="lg">
+              <Button href="/quote" variant="secondary" size="lg">
                 Get Free Quote
               </Button>
               <Button href="tel:877-345-7500" variant="outline" size="lg" className="border-white text-white hover:bg-white hover:text-brand-primary">
