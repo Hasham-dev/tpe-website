@@ -598,13 +598,13 @@ Your perfect day deserves perfect planning. Let's create something unforgettable
     readingTime: 12
   },
   {
-    slug: 'catalina-island-weddings-ultimate-venue-guide',
-    title: 'Catalina Island Weddings: Ultimate Venue Guide',
-    excerpt: 'Discover why Catalina Island is Southern California\'s premier destination wedding location. Complete guide to venues, logistics, and planning tips.',
+    slug: 'catalina-island-weddings-complete-planning-guide',
+    title: 'Catalina Island Weddings: Your Complete Planning Guide',
+    excerpt: 'Discover why Catalina Island is Southern California\'s premier destination wedding location. Complete guide to logistics, budgeting, and planning tips.',
     content: `
-# Catalina Island Weddings: Ultimate Venue Guide
+# Catalina Island Weddings: Your Complete Planning Guide
 
-Just 22 miles off the coast of Southern California lies a wedding destination that feels worlds away—Catalina Island. With its Mediterranean charm, stunning ocean views, and unique venues, Catalina has become one of the region's most sought-after wedding locations.
+Just 22 miles off the coast of Southern California lies a wedding destination that feels worlds away—Catalina Island. With its Mediterranean charm, stunning ocean views, and unique atmosphere, Catalina has become one of the region's most sought-after wedding locations.
 
 As one of the few full-service event companies with extensive Catalina Island experience, we've produced dozens of weddings on the island. This guide shares everything you need to know to plan your perfect Catalina Island wedding.
 
@@ -628,85 +628,28 @@ The journey to the island creates a shared experience for your guests. The ferry
 ### Exclusive Feel
 Limited accommodations naturally keep guest lists intimate. Everyone stays together, creating a multi-day celebration rather than a single-day event.
 
-## Top Catalina Island Wedding Venues
+## Types of Wedding Settings on Catalina
 
-### The Avalon Casino
-**Capacity:** 300+ for reception
-**Style:** Historic Art Deco elegance
-**Highlights:**
-- Iconic circular ballroom with murals
-- Ocean views from every angle
-- Historic significance (built 1929)
-- Built-in ambiance requires minimal decoration
+Catalina offers diverse settings to match your vision:
 
-This architectural masterpiece offers unmatched grandeur. The Casino Ballroom's art deco details and acoustics create magical moments, especially for couples who love vintage elegance and architectural beauty.
+### Historic Ballrooms
+The island features stunning art deco ballrooms with ocean views, perfect for couples who love vintage elegance and architectural beauty. These spaces often require minimal decoration thanks to their built-in grandeur.
 
-### Descanso Beach Club
-**Capacity:** 150-200
-**Style:** Beachfront casual elegance
-**Highlights:**
-- Toes-in-the-sand ceremony options
-- Private beach setting
-- Cabana and fire pit areas
-- Casual yet sophisticated atmosphere
-- Daytime and sunset wedding options
+### Beachfront Celebrations
+For couples wanting that California beach vibe, Catalina offers private beach settings with toes-in-the-sand ceremony options, cabana areas, and spectacular sunset views.
 
-Perfect for couples wanting that California beach vibe with upscale amenities. The private beach creates an intimate setting while still accommodating larger guest lists.
+### Garden & Botanical Settings
+Nature lovers can choose from lush botanical gardens with native plant species, offering natural photo opportunities and ever-changing colors throughout the seasons.
 
-### Hamilton Cove Villas
-**Capacity:** 50-100
-**Style:** Private estate elegance
-**Highlights:**
-- Exclusive villa setting
-- Multiple ceremony locations on property
-- Accommodations for wedding party
-- Intimate and private atmosphere
-- Customizable to your vision
-
-Ideal for couples seeking privacy and exclusivity. Rent the entire property for your wedding party and closest family for a true destination experience.
-
-### Wrigley Memorial & Botanic Garden
-**Capacity:** 150
-**Style:** Garden romance
-**Highlights:**
-- Lush botanical gardens
-- Historic memorial tower
-- Mountain and ocean vistas
-- Native plant species
-- Natural photo opportunities
-
-A nature lover's dream venue. The gardens provide ever-changing colors and textures, with the memorial tower offering a striking architectural element.
-
-### The Catalina Country Club
-**Capacity:** 200
-**Style:** Classic clubhouse charm
-**Highlights:**
-- Waterfront location
-- Historic clubhouse built in 1929
-- Lawn ceremony space
-- Indoor/outdoor flow
-- Spectacular sunset views
-
-Combining historic charm with modern amenities, this venue offers flexibility for ceremony and reception spaces with magnificent water views.
-
-### Two Harbors (Isthmus)
-**Capacity:** 100-150
-**Style:** Remote island adventure
-**Highlights:**
-- Extremely private and secluded
-- Untouched natural beauty
-- Multiple beach coves
-- Rustic, adventurous atmosphere
-- Camping or cabin accommodations
-
-For the adventurous couple who wants a truly unique experience. Two Harbors requires more logistics but delivers unmatched seclusion and natural beauty.
+### Remote Island Adventures
+The more secluded areas of the island provide untouched natural beauty, multiple beach coves, and a rustic, adventurous atmosphere for couples seeking something truly unique.
 
 ## Essential Catalina Wedding Logistics
 
 ### Transportation
 
 #### Getting to Catalina
-**Catalina Express Ferry:**
+**Ferry Service:**
 - Departs from Long Beach, San Pedro, and Dana Point
 - 1-hour crossing from mainland
 - Can accommodate 400+ passengers
@@ -721,22 +664,11 @@ For the adventurous couple who wants a truly unique experience. Two Harbors requ
 
 ### Guest Accommodations
 
-**Hotel Options in Avalon:**
-- Hotel Atwater
-- Pavilion Hotel
-- Hermosa Hotel & Cottages
-- The Avalon Hotel
-- Zane Grey Pueblo Hotel
-
-**Vacation Rentals:**
-- Hamilton Cove Villas
-- Private homes and condos
-- Book early—inventory is limited
-
-**Camping (Two Harbors):**
-- Tent camping
-- Cabin rentals
-- Glamping options
+Catalina offers various lodging options:
+- Boutique hotels in Avalon
+- Vacation rental homes and condos
+- Private villa accommodations
+- Camping and glamping options in remote areas
 
 **Important:** Catalina has limited accommodations. Secure room blocks 8-12 months in advance, especially for peak season weddings (May-October).
 
@@ -746,7 +678,7 @@ For the adventurous couple who wants a truly unique experience. Two Harbors requ
 Some vendors are based on the island; others travel from the mainland. Each has advantages:
 
 **Island-Based Vendors:**
-- Familiar with venues
+- Familiar with local conditions
 - No transportation logistics
 - Understand island constraints
 - Often more expensive due to limited competition
@@ -783,7 +715,7 @@ Everything must be transported to the island, including:
 - Fewer tourists (more intimate)
 - Better accommodation rates
 
-**Always Have a Backup Plan:** Even summer weather can surprise you. Ensure your venue has indoor options or rent elegant tent structures.
+**Always Have a Backup Plan:** Even summer weather can surprise you. Ensure your location has indoor options or rent elegant tent structures.
 
 ### Transportation Around the Island
 
@@ -799,12 +731,12 @@ Catalina has limited vehicle access. Transportation options:
 
 Certain locations require permits:
 - Beach ceremonies
-- Botanical garden
+- Botanical gardens
 - County-managed properties
 
-Your venue or planner will handle these, but factor 2-3 months lead time for permit approval.
+Your planner will handle these, but factor 2-3 months lead time for permit approval.
 
-### No Plastic Bag or Straw Policy
+### Environmental Considerations
 
 Catalina is committed to environmental preservation. Plan accordingly:
 - Use reusable or biodegradable items
@@ -835,8 +767,8 @@ Catalina weddings typically run 10-30% higher than mainland weddings due to:
 ### Ways to Save
 
 1. **Choose off-season dates** (November-April)
-2. **Host Sunday or Friday weddings** (lower venue rates)
-3. **Limit guest count** (fewer ferry tickets, smaller venue)
+2. **Host Sunday or Friday weddings** (lower rates)
+3. **Limit guest count** (fewer ferry tickets)
 4. **Use island-based vendors** (no transportation costs)
 5. **Simplify decor** (let natural beauty shine)
 6. **Book accommodations as a block** (negotiate group rates)
@@ -844,7 +776,7 @@ Catalina weddings typically run 10-30% higher than mainland weddings due to:
 ## Planning Timeline for Catalina Weddings
 
 **12-18 Months Before:**
-- Book venue and secure date
+- Secure your date and location
 - Reserve accommodation blocks
 - Hire wedding planner/coordinator
 
@@ -899,7 +831,7 @@ At The Perfect Event, we're one of the few full-service event companies with dee
 
 ### Island-Specific Experience
 We know:
-- Which venues work best for different wedding styles
+- How to match your vision with the right island setting
 - How to budget accurately for island logistics
 - Reliable island-based vendors
 - How to create stunning events within island constraints
@@ -907,7 +839,7 @@ We know:
 
 ### All-Inclusive Service
 Everything under one roof:
-- Venue booking assistance
+- Location booking assistance
 - Complete vendor coordination
 - Entertainment (DJs, live music)
 - Professional lighting and AV
@@ -921,8 +853,8 @@ You shouldn't have to worry about ferry schedules, permit applications, or equip
 
 ## Real Catalina Wedding Success Story
 
-*"We knew we wanted a Catalina wedding but felt overwhelmed by the logistics. The Perfect Event made it effortless. They coordinated 150 guests' ferry tickets, arranged all our vendors, and transformed Descanso Beach into our dream celebration. Our guests still talk about it as the best wedding they've ever attended. The three-day experience created memories we'll treasure forever."*
-— Sarah & Michael, Married at Descanso Beach Club, 2023
+*"We knew we wanted a Catalina wedding but felt overwhelmed by the logistics. The Perfect Event made it effortless. They coordinated 150 guests' ferry tickets, arranged all our vendors, and transformed our beach setting into our dream celebration. Our guests still talk about it as the best wedding they've ever attended. The three-day experience created memories we'll treasure forever."*
+— Sarah & Michael, Catalina Island Wedding, 2023
 
 ## Ready to Plan Your Catalina Island Wedding?
 
@@ -930,12 +862,12 @@ Catalina Island offers a magical setting unlike any other in Southern California
 
 Contact The Perfect Event today for a complimentary Catalina wedding consultation. Let's start planning your unforgettable island celebration.
 
-*The Perfect Event has been producing Catalina Island weddings for over a decade. Our team knows the island intimately and has established relationships with every major venue and vendor. Let our experience be your advantage.*
+*The Perfect Event has been producing Catalina Island weddings for over a decade. Our team knows the island intimately and can help you find the perfect setting for your celebration. Let our experience be your advantage.*
 `,
     author: 'Nikki Saks',
     publishedAt: '2024-10-20',
     category: 'Wedding Planning',
-    tags: ['Catalina Island', 'destination weddings', 'Southern California weddings', 'wedding venues'],
+    tags: ['Catalina Island', 'destination weddings', 'Southern California weddings', 'island wedding'],
     featuredImage: '/images/events/catalina-wine-mixer.jpg',
     readingTime: 10
   },

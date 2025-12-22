@@ -38,6 +38,13 @@ export const SERVICES = [
     href: '/services/coordination-design',
   },
   {
+    id: 'venue-booking',
+    title: 'Venue Booking',
+    description: 'Expert venue sourcing and booking assistance to find the perfect location for your event.',
+    image: '/images/services/venue-booking.jpg',
+    href: '/services/venue-booking',
+  },
+  {
     id: 'entertainment',
     title: 'Entertainment',
     description: 'DJs, live bands, performers, and interactive entertainment for any occasion.',

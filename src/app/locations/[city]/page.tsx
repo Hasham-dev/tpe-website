@@ -2,12 +2,13 @@ import { Metadata } from 'next'
 import Image from 'next/image'
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
-import { MapPin, Phone, Mail, CheckCircle2, Star, ArrowRight } from 'lucide-react'
+import { MapPin, Phone, Mail, CheckCircle2, Star, ArrowRight, HelpCircle } from 'lucide-react'
 import { getLocationBySlug, getAllLocationSlugs, LOCATIONS } from '@/lib/locations'
 import { SERVICES } from '@/lib/constants'
 import { Container } from '@/components/ui/Container'
 import { Button } from '@/components/ui/Button'
 import { Section, SectionHeader } from '@/components/ui/Section'
+import { FAQSchema } from '@/components/seo/StructuredData'
 
 interface LocationPageProps {
   params: {
@@ -237,31 +238,6 @@ export default function LocationPage({ params }: LocationPageProps) {
         </Section>
       )}
 
-      {/* Featured Venues */}
-      {location.featuredVenues && location.featuredVenues.length > 0 && (
-        <Section background="white">
-          <Container>
-            <SectionHeader
-              subtitle="Trusted Partners"
-              title={`Venues We Serve in ${location.name}`}
-              description="We work with the finest venues throughout the area."
-            />
-
-            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-              {location.featuredVenues.map((venue, index) => (
-                <div
-                  key={index}
-                  className="bg-brand-cream rounded-xl p-6 text-center border border-brand-accent/20 hover:border-brand-accent/40 hover:shadow-lg transition-all duration-300"
-                >
-                  <MapPin className="w-6 h-6 text-brand-accent mx-auto mb-3" />
-                  <p className="font-medium text-brand-primary text-sm">{venue}</p>
-                </div>
-              ))}
-            </div>
-          </Container>
-        </Section>
-      )}
-
       {/* Service Areas */}
       <Section background="cream">
         <Container>
@@ -285,6 +261,43 @@ export default function LocationPage({ params }: LocationPageProps) {
           </div>
         </Container>
       </Section>
+
+      {/* FAQs */}
+      {location.faqs && location.faqs.length > 0 && (
+        <>
+          <FAQSchema faqs={location.faqs} />
+          <Section background="white">
+            <Container>
+              <div className="max-w-4xl mx-auto">
+                <SectionHeader
+                  subtitle="Common Questions"
+                  title={`${location.name} Event Planning FAQs`}
+                  description="Answers to frequently asked questions about our services in this area."
+                />
+
+                <div className="space-y-4">
+                  {location.faqs.map((faq, index) => (
+                    <div
+                      key={index}
+                      className="bg-brand-cream rounded-xl p-6 hover:shadow-md transition-shadow"
+                    >
+                      <div className="flex items-start gap-4">
+                        <HelpCircle className="w-6 h-6 text-brand-accent flex-shrink-0 mt-0.5" />
+                        <div>
+                          <h3 className="font-semibold text-brand-primary mb-2">
+                            {faq.question}
+                          </h3>
+                          <p className="text-gray-700">{faq.answer}</p>
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </Container>
+          </Section>
+        </>
+      )}
 
       {/* CTA Section */}
       <Section background="primary">

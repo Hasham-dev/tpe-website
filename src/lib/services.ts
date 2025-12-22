@@ -52,6 +52,45 @@ export const SERVICES_DATA: Service[] = [
     ],
   },
   {
+    id: 'venue-booking',
+    slug: 'venue-booking',
+    title: 'Venue Booking',
+    description: 'Expert venue sourcing and booking assistance to find the perfect location for your event.',
+    longDescription: 'Finding the perfect venue is one of the most important decisions in event planning. Our venue booking service takes the stress out of this process by leveraging our extensive network and 17+ years of industry relationships. We help you identify, evaluate, and secure venues that match your vision, guest count, budget, and logistical requirements. From intimate private estates to grand ballrooms, beachfront locations to vineyard settings, we know the best options throughout Southern California and beyond.',
+    image: '/images/services/venue-booking.jpg',
+    features: [
+      'Personalized venue recommendations based on your vision',
+      'Site visits and venue tours coordination',
+      'Contract review and negotiation assistance',
+      'Budget analysis and comparison',
+      'Logistics assessment (parking, accessibility, catering options)',
+      'Backup venue identification',
+      'Vendor compatibility evaluation',
+      'Timeline planning around venue availability',
+      'On-site walkthroughs with your planning team',
+    ],
+    pricingHint: 'Venue booking consultation included with full-service packages. Standalone service available.',
+    relatedServices: ['coordination', 'finishing-touches', 'transportation'],
+    faqs: [
+      {
+        question: 'Do you work with specific venues exclusively?',
+        answer: 'No, we are venue-neutral and work with locations throughout Southern California and Arizona. Our goal is to find the perfect match for your specific event needs, not to steer you toward particular venues.',
+      },
+      {
+        question: 'Can you help negotiate venue contracts?',
+        answer: 'Yes! We review contracts, identify potential issues, and help negotiate terms on your behalf. Our experience helps ensure you get fair pricing and favorable conditions.',
+      },
+      {
+        question: 'What if I already have a venue in mind?',
+        answer: 'We can still help! We offer site visits to assess logistics, identify potential challenges, and ensure the venue will work for your event vision. We can also help with contract negotiation.',
+      },
+      {
+        question: 'How far in advance should I book a venue?',
+        answer: 'Popular venues book 12-18 months in advance, especially for peak season dates. We recommend starting your venue search as early as possible to have the best selection.',
+      },
+    ],
+  },
+  {
     id: 'entertainment',
     slug: 'entertainment',
     title: 'Entertainment',

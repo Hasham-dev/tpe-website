@@ -21,14 +21,14 @@ export interface CaseStudy {
 
 export const caseStudies: CaseStudy[] = [
   {
-    slug: 'langham-corporate-gala',
-    title: '500-Guest Corporate Gala at The Langham',
+    slug: 'pasadena-corporate-gala',
+    title: '500-Guest Corporate Gala',
     eventType: 'Corporate',
     guestCount: 500,
-    location: 'The Langham, Pasadena, CA',
+    location: 'Luxury Hotel, Pasadena, CA',
     date: 'October 2024',
     description: 'A high-end corporate gala for a Fortune 500 tech company celebrating their 25th anniversary, featuring full production with custom lighting, live entertainment, and seamless coordination.',
-    challenge: 'The client needed to transform The Langham\'s ballroom into a high-tech, branded environment while maintaining the venue\'s elegant aesthetic. With 500 VIP guests including international executives, the event required flawless execution, multilingual coordination, and zero room for error.',
+    challenge: 'The client needed to transform the venue\'s ballroom into a high-tech, branded environment while maintaining an elegant aesthetic. With 500 VIP guests including international executives, the event required flawless execution, multilingual coordination, and zero room for error.',
     solution: 'We designed a custom lighting package that projected the company\'s brand colors throughout the space using intelligent fixtures and gobos. Our team coordinated with international speakers for AV requirements, provided simultaneous translation equipment, and created a seamless program flow from cocktail reception through awards ceremony and after-party. Our in-house catering team created a custom menu reflecting the company\'s global presence.',
     services: [
       'Full Event Coordination',
@@ -63,7 +63,7 @@ export const caseStudies: CaseStudy[] = [
     title: 'Catalina Wine Mixer 2024',
     eventType: 'Festival',
     guestCount: 1200,
-    location: 'Descanso Beach Club, Catalina Island',
+    location: 'Catalina Island, CA',
     date: 'September 2024',
     description: 'Southern California\'s premier wine and music festival featuring 1,200 guests, multiple stages, and a full day of entertainment on beautiful Catalina Island.',
     challenge: 'Producing a large-scale festival on an island presents unique logistical challenges: all equipment must be transported by boat, power infrastructure is limited, and we needed to create multiple entertainment zones while working within strict environmental guidelines. Weather contingency planning was critical with ocean exposure.',
@@ -103,9 +103,9 @@ export const caseStudies: CaseStudy[] = [
     title: 'USC Greek Life Formal 2024',
     eventType: 'University',
     guestCount: 400,
-    location: 'Resort at Pelican Hill, Newport Beach',
+    location: 'Luxury Resort, Newport Beach',
     date: 'April 2024',
-    description: 'An elegant formal event for USC Greek Life featuring 400 students, complete with transportation, entertainment, and full production at the luxury Pelican Hill Resort.',
+    description: 'An elegant formal event for USC Greek Life featuring 400 students, complete with transportation, entertainment, and full production at a luxury Newport Beach resort.',
     challenge: 'Coordinating an event for 400 college students requires balancing high energy entertainment with the sophistication expected at a luxury resort. We needed to ensure safe transportation from campus, manage alcohol service responsibly, and create an unforgettable experience within a student budget.',
     solution: 'We created a comprehensive package including round-trip luxury coach transportation from USC campus, a 4-hour open bar with professional bartending and security, and a high-energy DJ performance. Our lighting design transformed the ballroom into a nightclub atmosphere while respecting the venue\'s elegant aesthetic. We stationed security at strategic points and worked closely with resort staff to ensure smooth operations.',
     services: [
@@ -124,7 +124,7 @@ export const caseStudies: CaseStudy[] = [
       '/images/events/high-school.jpg',
     ],
     testimonial: {
-      quote: 'The Perfect Event made our formal absolutely incredible. The transportation was seamless, the DJ was amazing, and the lighting made Pelican Hill look like a dream. They handled everything professionally and made sure everyone had a safe, amazing time. Best formal ever!',
+      quote: 'The Perfect Event made our formal absolutely incredible. The transportation was seamless, the DJ was amazing, and the lighting made the venue look like a dream. They handled everything professionally and made sure everyone had a safe, amazing time. Best formal ever!',
       author: 'Sarah Thompson',
       role: 'Social Chair, USC Greek Life',
     },
@@ -141,10 +141,10 @@ export const caseStudies: CaseStudy[] = [
     title: 'Oceanfront Wedding in Santa Barbara',
     eventType: 'Wedding',
     guestCount: 200,
-    location: 'Bacara Resort & Spa, Santa Barbara',
+    location: 'Oceanfront Resort, Santa Barbara',
     date: 'June 2024',
     description: 'An elegant oceanfront wedding featuring 200 guests, with ceremony on the bluffs and reception under a custom-lit tent overlooking the Pacific Ocean.',
-    challenge: 'The couple wanted a seamless indoor-outdoor experience with ceremony on the ocean bluffs and reception in a tent. This required coordinating weather contingencies, managing sound coverage across large outdoor areas with wind considerations, and creating romantic lighting that would transition from sunset through late night. The venue\'s strict noise ordinances required creative solutions.',
+    challenge: 'The couple wanted a seamless indoor-outdoor experience with ceremony on the ocean bluffs and reception in a tent. This required coordinating weather contingencies, managing sound coverage across large outdoor areas with wind considerations, and creating romantic lighting that would transition from sunset through late night. The location\'s strict noise ordinances required creative solutions.',
     solution: 'We designed a comprehensive plan with ceremony sound using directional speakers to minimize sound bleed, and installed a climate-controlled tent with crystal chandeliers and custom uplighting. Our team created a lighting timeline that evolved throughout the evening, starting with natural ambiance during sunset and transitioning to romantic cafe lighting for dinner and vibrant dance floor effects. We coordinated with the venue for all logistics and had a weather backup plan ready to execute within 2 hours if needed.',
     services: [
       'Full Wedding Coordination',
