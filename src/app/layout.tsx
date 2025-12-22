@@ -4,6 +4,7 @@ import './globals.css'
 import { Header } from '@/components/layout/Header'
 import { Footer } from '@/components/layout/Footer'
 import { GoogleAnalytics } from '@/components/analytics/GoogleAnalytics'
+import { LocalBusinessSchema, WebsiteSchema } from '@/components/seo/StructuredData'
 
 const montserrat = Montserrat({
   subsets: ['latin'],
@@ -33,13 +34,33 @@ export const metadata: Metadata = {
   },
   description: "Southern California's premier event production company. Weddings, corporate events, festivals - one company handles coordination, entertainment, AV, transportation & more. 600+ events yearly. Get your free quote.",
   keywords: [
+    // Primary keywords
     'event planning Los Angeles',
-    'wedding planner Orange County',
+    'event production company California',
+    'full service event planner',
+    'wedding planner Southern California',
+    // Location-based keywords
     'corporate event planner San Diego',
-    'full service event company California',
-    'event production Southern California',
-    'festival planning services',
+    'wedding planner Orange County',
+    'event company Long Beach',
+    'Santa Barbara event planner',
+    // Service keywords
+    'DJ services Los Angeles',
+    'event lighting rental',
+    'wedding entertainment',
+    'corporate party planning',
+    'festival production company',
+    // Event type keywords
     'university event company',
+    'college event planning',
+    'prom DJ services',
+    'high school dance entertainment',
+    'private party planner',
+    // Long-tail keywords
+    'best event planner near me',
+    'affordable wedding DJ California',
+    'full service event production',
+    'one stop event company',
   ],
   authors: [{ name: 'The Perfect Event' }],
   creator: 'The Perfect Event',
@@ -100,6 +121,8 @@ export default function RootLayout({
         <link rel="manifest" href="/manifest.json" />
       </head>
       <body className="font-sans">
+        <LocalBusinessSchema />
+        <WebsiteSchema />
         <GoogleAnalytics />
         <Header />
         <main>{children}</main>

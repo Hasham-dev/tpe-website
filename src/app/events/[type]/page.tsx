@@ -8,6 +8,9 @@ import { Button } from '@/components/ui/Button'
 import { Breadcrumb } from '@/components/ui/Breadcrumb'
 import { EVENTS_DATA, getEventBySlug, getAllEventSlugs } from '@/lib/events'
 import { cn } from '@/lib/utils'
+import { EventTypeSchema, BreadcrumbSchema } from '@/components/seo/StructuredData'
+
+const BASE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://theperfectevent.com'
 
 interface EventPageProps {
   params: {
@@ -55,8 +58,25 @@ export default function EventTypePage({ params }: EventPageProps) {
     notFound()
   }
 
+  const eventUrl = `${BASE_URL}/events/${event.slug}`
+
   return (
     <>
+      {/* Structured Data for SEO */}
+      <EventTypeSchema
+        name={event.title}
+        description={event.longDescription}
+        url={eventUrl}
+        image={event.image}
+      />
+      <BreadcrumbSchema
+        items={[
+          { name: 'Home', url: BASE_URL },
+          { name: 'Event Types', url: `${BASE_URL}/#events` },
+          { name: event.title, url: eventUrl },
+        ]}
+      />
+
       {/* Hero Section */}
       <Section background="default" spacing="none" className="relative">
         <div className="relative h-[500px] md:h-[600px]">

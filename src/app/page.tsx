@@ -14,10 +14,15 @@ import { Gallery } from '@/components/sections/Gallery'
 import { Team } from '@/components/sections/Team'
 import { FAQ } from '@/components/sections/FAQ'
 import { Contact } from '@/components/sections/Contact'
+import { FAQSchema } from '@/components/seo/StructuredData'
+import { FAQS } from '@/lib/constants'
 
 export default function HomePage() {
   return (
     <>
+      {/* FAQ Schema for SEO */}
+      <FAQSchema faqs={FAQS} />
+
       {/* Hero with video background */}
       <Hero />
 

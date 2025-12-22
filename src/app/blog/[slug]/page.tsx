@@ -8,6 +8,9 @@ import { Section } from '@/components/ui/Section'
 import { Breadcrumb } from '@/components/ui/Breadcrumb'
 import { RelatedPosts } from '@/components/ui/RelatedPosts'
 import { BLOG_POSTS, getBlogPost, getRelatedPosts } from '@/lib/blog-posts'
+import { ArticleSchema, BreadcrumbSchema } from '@/components/seo/StructuredData'
+
+const BASE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://theperfectevent.com'
 
 interface BlogPostPageProps {
   params: {
@@ -165,6 +168,7 @@ export default function BlogPostPage({ params }: BlogPostPageProps) {
   }
 
   const relatedPosts = getRelatedPosts(post.slug, post.category, 3)
+  const postUrl = `${BASE_URL}/blog/${post.slug}`
 
   const formattedDate = new Date(post.publishedAt).toLocaleDateString('en-US', {
     year: 'numeric',
@@ -174,6 +178,25 @@ export default function BlogPostPage({ params }: BlogPostPageProps) {
 
   return (
     <>
+      {/* Structured Data for SEO */}
+      <ArticleSchema
+        title={post.title}
+        description={post.excerpt}
+        url={postUrl}
+        image={post.featuredImage}
+        author={post.author}
+        publishedAt={post.publishedAt}
+        tags={post.tags}
+      />
+      <BreadcrumbSchema
+        items={[
+          { name: 'Home', url: BASE_URL },
+          { name: 'Blog', url: `${BASE_URL}/blog` },
+          { name: post.category, url: `${BASE_URL}/blog?category=${encodeURIComponent(post.category)}` },
+          { name: post.title, url: postUrl },
+        ]}
+      />
+
       {/* Hero Section */}
       <Section background="default" spacing="none" className="relative">
         <div className="relative h-[400px] md:h-[500px]">

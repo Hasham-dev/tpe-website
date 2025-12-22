@@ -8,6 +8,9 @@ import { Section } from '@/components/ui/Section'
 import { Button } from '@/components/ui/Button'
 import { Breadcrumb } from '@/components/ui/Breadcrumb'
 import { SERVICES_DATA, getServiceBySlug, getRelatedServices } from '@/lib/services'
+import { ServiceSchema, BreadcrumbSchema, FAQSchema } from '@/components/seo/StructuredData'
+
+const BASE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://theperfectevent.com'
 
 interface ServicePageProps {
   params: {
@@ -56,9 +59,27 @@ export default function ServicePage({ params }: ServicePageProps) {
   }
 
   const relatedServices = getRelatedServices(service.id, 3)
+  const serviceUrl = `${BASE_URL}/services/${service.slug}`
 
   return (
     <>
+      {/* Structured Data for SEO */}
+      <ServiceSchema
+        name={service.title}
+        description={service.longDescription}
+        url={serviceUrl}
+        image={service.image}
+        features={service.features}
+      />
+      <BreadcrumbSchema
+        items={[
+          { name: 'Home', url: BASE_URL },
+          { name: 'Services', url: `${BASE_URL}/services` },
+          { name: service.title, url: serviceUrl },
+        ]}
+      />
+      <FAQSchema faqs={service.faqs} />
+
       {/* Hero Section */}
       <Section background="default" spacing="none" className="relative">
         <div className="relative h-[400px] md:h-[500px]">
