@@ -390,10 +390,37 @@ async function sendEmail(params: {
   }
 }
 
+// Minimum time (in ms) a human would take to fill out the form
+const MIN_FORM_TIME_MS = 3000
+
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json()
-    const { name, email, phone, eventType, eventDate, guestCount, budgetRange, message } = body
+    const { name, email, phone, eventType, eventDate, guestCount, budgetRange, message, website, formLoadedAt } = body
+
+    // Bot protection: Honeypot field check
+    // If 'website' field is filled, it's likely a bot (field is hidden from humans)
+    if (website) {
+      console.warn('Bot detected: honeypot field filled')
+      // Return success to not alert the bot, but don't process
+      return NextResponse.json(
+        { success: true, message: 'Message received successfully!' },
+        { status: 200 }
+      )
+    }
+
+    // Bot protection: Time-based check
+    // If form was submitted too quickly, it's likely a bot
+    if (formLoadedAt) {
+      const timeSpent = Date.now() - formLoadedAt
+      if (timeSpent < MIN_FORM_TIME_MS) {
+        console.warn(`Bot detected: form submitted too fast (${timeSpent}ms)`)
+        return NextResponse.json(
+          { success: true, message: 'Message received successfully!' },
+          { status: 200 }
+        )
+      }
+    }
 
     // Validate required fields
     if (!name || !email || !eventType || !message) {

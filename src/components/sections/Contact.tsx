@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
@@ -29,6 +29,12 @@ type ContactFormData = z.infer<typeof contactSchema>
 export function Contact() {
   const [isSubmitted, setIsSubmitted] = useState(false)
   const [submitError, setSubmitError] = useState<string | null>(null)
+  const [formLoadedAt, setFormLoadedAt] = useState<number>(0)
+
+  // Track when form was loaded (for bot detection)
+  useEffect(() => {
+    setFormLoadedAt(Date.now())
+  }, [])
 
   const {
     register,
@@ -44,14 +50,17 @@ export function Contact() {
     setSubmitError(null)
   }
 
-  const onSubmit = async (data: ContactFormData) => {
+  const onSubmit = async (data: ContactFormData & { website?: string }) => {
     setSubmitError(null)
 
     try {
       const response = await fetch('/api/contact', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(data),
+        body: JSON.stringify({
+          ...data,
+          formLoadedAt, // Include timestamp for bot detection
+        }),
       })
 
       if (!response.ok) {
@@ -152,6 +161,19 @@ export function Contact() {
           {/* Contact Form */}
           <div className="lg:col-span-2 order-first lg:order-last">
             <form onSubmit={handleSubmit(onSubmit)} className="bg-brand-cream rounded-xl p-5 sm:p-6">
+              {/* Honeypot field - hidden from humans, bots will fill it */}
+              <div aria-hidden="true" style={{ position: 'absolute', left: '-9999px', top: '-9999px' }}>
+                <label htmlFor="website">Website</label>
+                <input
+                  {...register('website' as keyof ContactFormData)}
+                  type="text"
+                  id="website"
+                  name="website"
+                  tabIndex={-1}
+                  autoComplete="off"
+                />
+              </div>
+
               <div className="space-y-6">
                 {/* Your Information Group */}
                 <fieldset>
