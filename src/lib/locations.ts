@@ -294,7 +294,7 @@ export const LOCATIONS: Location[] = [
     slug: 'catalina-island',
     name: 'Catalina Island',
     fullName: 'Catalina Island, CA',
-    description: 'Exclusive event planning on Catalina Island. Specializing in destination weddings and special events with seamless logistics and transportation coordination.',
+    description: 'Exclusive event planning on Catalina Island. Specializing in destination weddings and special events with seamless logistics and transportation coordination. We service the entire island.',
     metaDescription: 'Catalina Island event planning and destination wedding services. Full-service production for island events including coordination, entertainment, and transportation.',
     keywords: [
       'Catalina Island event planner',
@@ -310,13 +310,6 @@ export const LOCATIONS: Location[] = [
       'Avalon',
       'Two Harbors',
       'Descanso Beach',
-      'Hamilton Cove',
-    ],
-    featuredVenues: [
-      'The Avalon Hotel',
-      'Mt. Ada',
-      'Descanso Beach Club',
-      'Casino Point',
       'Hamilton Cove',
     ],
     coordinates: {

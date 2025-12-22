@@ -35,7 +35,7 @@ export const SERVICES_DATA: Service[] = [
       'Post-event wrap-up and vendor payments',
     ],
     pricingHint: 'Coordination packages start at $3,500. Full-service packages available.',
-    relatedServices: ['venue-booking', 'finishing-touches', 'entertainment'],
+    relatedServices: ['finishing-touches', 'entertainment', 'lighting-effects'],
     faqs: [
       {
         question: 'What is the difference between day-of coordination and full planning?',
@@ -48,41 +48,6 @@ export const SERVICES_DATA: Service[] = [
       {
         question: 'Do you provide design services?',
         answer: 'Yes! Our coordination packages include event design consultation, mood boards, and layout planning. We work with you to bring your vision to life.',
-      },
-    ],
-  },
-  {
-    id: 'venue',
-    slug: 'venue-booking',
-    title: 'Venue Booking',
-    description: 'Access to exclusive venues and expert guidance in selecting the perfect location.',
-    longDescription: 'Finding the perfect venue sets the foundation for an unforgettable event. We have established relationships with premier venues throughout Southern California, from beachfront properties to historic estates, luxury hotels to unique industrial spaces. Our venue experts help you navigate options, negotiate contracts, and secure the ideal location for your celebration.',
-    image: '/images/services/venue.jpg',
-    features: [
-      'Access to 200+ exclusive venue partners',
-      'Personalized venue recommendations based on your needs',
-      'Site visits and walk-throughs with our team',
-      'Contract review and negotiation',
-      'Venue insurance coordination',
-      'Permit assistance for public spaces',
-      'Backup venue options and contingency planning',
-      'Venue layout and capacity planning',
-      'Coordination with venue staff and management',
-    ],
-    pricingHint: 'Venue booking services included in coordination packages or available separately.',
-    relatedServices: ['coordination-design', 'lighting-effects', 'sound-staging'],
-    faqs: [
-      {
-        question: 'Do you charge fees for venue booking?',
-        answer: 'Venue booking is included in our full-service packages. For standalone venue booking, we charge a small service fee that is often offset by the discounts we negotiate.',
-      },
-      {
-        question: 'What areas do you cover?',
-        answer: 'We have venue relationships throughout Southern California including Los Angeles, Orange County, San Diego, Inland Empire, Santa Barbara, San Luis Obispo, and Catalina Island.',
-      },
-      {
-        question: 'Can you help with outdoor venue permits?',
-        answer: 'Absolutely! We handle all permit applications and coordination with local authorities for beach events, park gatherings, and other public space rentals.',
       },
     ],
   },
@@ -176,7 +141,7 @@ export const SERVICES_DATA: Service[] = [
       'Backup vehicles on standby',
     ],
     pricingHint: 'Shuttle services from $500. Party buses from $1,200. Custom routes available.',
-    relatedServices: ['coordination-design', 'venue-booking', 'entertainment'],
+    relatedServices: ['coordination-design', 'entertainment', 'lighting-effects'],
     faqs: [
       {
         question: 'How many shuttles do I need?',
@@ -195,9 +160,9 @@ export const SERVICES_DATA: Service[] = [
   {
     id: 'lighting',
     slug: 'lighting-effects',
-    title: 'Lighting & Effects',
-    description: 'Atmospheric lighting, special effects, and visual production.',
-    longDescription: 'Transform any space with our state-of-the-art lighting and effects. From elegant uplighting to dramatic dance floor effects, our lighting designers create the perfect ambiance for your event. We own our equipment, ensuring top quality and reliability for everything from intimate gatherings to large-scale productions.',
+    title: 'Full Service A/V',
+    description: 'Complete audio-visual production including lighting, effects, and visual displays.',
+    longDescription: 'Transform any space with our comprehensive audio-visual production services. From elegant uplighting and dramatic dance floor effects to LED video walls and projection mapping, our AV specialists create the perfect atmosphere for your event. We own our equipment, ensuring top quality and reliability for everything from intimate gatherings to large-scale productions.',
     image: '/images/services/lighting.jpg',
     features: [
       'Uplighting in custom colors',
@@ -212,7 +177,7 @@ export const SERVICES_DATA: Service[] = [
       'Custom lighting design and programming',
     ],
     pricingHint: 'Basic uplighting from $800. Full lighting design from $2,500. Custom packages available.',
-    relatedServices: ['sound-staging', 'entertainment', 'venue-booking'],
+    relatedServices: ['sound-staging', 'entertainment', 'coordination-design'],
     faqs: [
       {
         question: 'Do you provide lighting design consultations?',
@@ -248,7 +213,7 @@ export const SERVICES_DATA: Service[] = [
       'On-site audio engineers',
     ],
     pricingHint: 'Basic sound packages from $1,200. Full production from $5,000. Festival pricing available.',
-    relatedServices: ['entertainment', 'lighting-effects', 'venue-booking'],
+    relatedServices: ['entertainment', 'lighting-effects', 'coordination-design'],
     faqs: [
       {
         question: 'Do you provide sound engineers?',
@@ -284,7 +249,7 @@ export const SERVICES_DATA: Service[] = [
       'Coordination with local law enforcement',
     ],
     pricingHint: 'Security services from $500 per officer. Package rates available for multiple officers.',
-    relatedServices: ['coordination-design', 'venue-booking', 'transportation'],
+    relatedServices: ['coordination-design', 'transportation', 'finishing-touches'],
     faqs: [
       {
         question: 'How many security officers do I need?',
@@ -320,7 +285,7 @@ export const SERVICES_DATA: Service[] = [
       'Party favors and welcome bags',
     ],
     pricingHint: 'Finishing touches packages from $1,000. Custom quotes based on specific needs.',
-    relatedServices: ['coordination-design', 'venue-booking', 'lighting-effects'],
+    relatedServices: ['coordination-design', 'lighting-effects', 'entertainment'],
     faqs: [
       {
         question: 'Do you provide florists?',

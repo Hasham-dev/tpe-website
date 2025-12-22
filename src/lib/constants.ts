@@ -38,13 +38,6 @@ export const SERVICES = [
     href: '/services/coordination-design',
   },
   {
-    id: 'venue',
-    title: 'Venue Booking',
-    description: 'Access to exclusive venues and expert guidance in selecting the perfect location.',
-    image: '/images/services/venue.jpg',
-    href: '/services/venue-booking',
-  },
-  {
     id: 'entertainment',
     title: 'Entertainment',
     description: 'DJs, live bands, performers, and interactive entertainment for any occasion.',
@@ -67,8 +60,8 @@ export const SERVICES = [
   },
   {
     id: 'lighting',
-    title: 'Lighting & Effects',
-    description: 'Atmospheric lighting, special effects, and visual production.',
+    title: 'Full Service A/V',
+    description: 'Complete audio-visual production including lighting, effects, and visual displays.',
     image: '/images/services/lighting.jpg',
     href: '/services/lighting-effects',
   },
@@ -96,26 +89,13 @@ export const SERVICES = [
 ]
 
 export const EVENT_TYPES = [
-  {
-    id: 'weddings',
-    title: 'Weddings',
-    description: 'On one of the most important days of your life, we provide a full service program.',
-    image: '/images/events/weddings.jpg',
-    href: '/events/weddings',
-  },
+  // First row: Corporate, University, High School
   {
     id: 'corporate',
     title: 'Corporate',
     description: 'Let us handle the work this time so you can focus on your clients and employees.',
     image: '/images/events/corporate.jpg',
     href: '/events/corporate',
-  },
-  {
-    id: 'festivals',
-    title: 'Festivals',
-    description: 'Our wide range of personnel and equipment allows us to facilitate all your festival needs.',
-    image: '/images/events/festivals.jpg',
-    href: '/events/festivals',
   },
   {
     id: 'university',
@@ -130,6 +110,21 @@ export const EVENT_TYPES = [
     description: 'Bring the "WOW" factor to all of your proms and events.',
     image: '/images/events/high-school.jpg',
     href: '/events/high-school',
+  },
+  // Second row: Weddings, Festivals, Private Parties
+  {
+    id: 'weddings',
+    title: 'Weddings',
+    description: 'On one of the most important days of your life, we provide a full service program.',
+    image: '/images/events/weddings.jpg',
+    href: '/events/weddings',
+  },
+  {
+    id: 'festivals',
+    title: 'Festivals',
+    description: 'Our wide range of personnel and equipment allows us to facilitate all your festival needs.',
+    image: '/images/events/festivals.jpg',
+    href: '/events/festivals',
   },
   {
     id: 'private',

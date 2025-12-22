@@ -2,7 +2,7 @@
 
 import Image from 'next/image'
 import Link from 'next/link'
-import { ArrowUpRight, Sparkles, Music, Camera, Bus, Lightbulb, Speaker, Shield, Heart, MapPin } from 'lucide-react'
+import { ArrowUpRight, Sparkles, Music, Camera, Bus, Lightbulb, Speaker, Shield, Heart } from 'lucide-react'
 import { Section, SectionHeader } from '@/components/ui/Section'
 import { Container } from '@/components/ui/Container'
 import { cn } from '@/lib/utils'
@@ -16,14 +16,6 @@ const SERVICES = [
     href: '/services/coordination',
     icon: Sparkles,
     featured: true,
-  },
-  {
-    id: 'venue',
-    title: 'Venue Booking',
-    description: 'Access to exclusive venues',
-    image: '/images/services/venue.jpg',
-    href: '/services/venue-booking',
-    icon: MapPin,
   },
   {
     id: 'entertainment',
@@ -52,8 +44,8 @@ const SERVICES = [
   },
   {
     id: 'lighting',
-    title: 'Lighting & Effects',
-    description: 'Atmospheric lighting & visuals',
+    title: 'Full Service A/V',
+    description: 'Complete audio-visual production',
     image: '/images/services/lighting.jpg',
     href: '/services/lighting',
     icon: Lightbulb,
