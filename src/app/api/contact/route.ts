@@ -393,6 +393,58 @@ async function sendEmail(params: {
 // Minimum time (in ms) a human would take to fill out the form
 const MIN_FORM_TIME_MS = 3000
 
+// Spam/malware detection patterns
+const SPAM_PATTERNS = [
+  /\b(viagra|cialis|casino|lottery|winner|congratulations.*won|click here|act now|limited time|free money)\b/i,
+  /\b(SEO|backlink|link building|guest post|sponsored post|buy followers|increase traffic)\b/i,
+  /\b(crypto|bitcoin|investment opportunity|make money fast|work from home.*\$)\b/i,
+]
+
+const SUSPICIOUS_URL_PATTERNS = [
+  /\.(ru|cn|tk|ml|ga|cf|gq|xyz|top|click|loan|work)\b/i, // Suspicious TLDs
+  /bit\.ly|tinyurl|goo\.gl|t\.co|shorturl/i, // URL shorteners (often used to hide malicious links)
+  /(\.exe|\.zip|\.rar|\.js|\.vbs|\.bat|\.cmd|\.scr|\.msi)\b/i, // Executable file extensions
+]
+
+// Check for excessive URLs (spam indicator)
+const URL_REGEX = /https?:\/\/[^\s]+/gi
+
+function detectSpam(text: string): { isSpam: boolean; reason?: string } {
+  // Check for spam patterns
+  for (const pattern of SPAM_PATTERNS) {
+    if (pattern.test(text)) {
+      return { isSpam: true, reason: 'spam keywords detected' }
+    }
+  }
+
+  // Check for suspicious URLs
+  for (const pattern of SUSPICIOUS_URL_PATTERNS) {
+    if (pattern.test(text)) {
+      return { isSpam: true, reason: 'suspicious URL detected' }
+    }
+  }
+
+  // Check for excessive URLs (more than 3 URLs is suspicious for a contact form)
+  const urls = text.match(URL_REGEX)
+  if (urls && urls.length > 3) {
+    return { isSpam: true, reason: `excessive URLs (${urls.length})` }
+  }
+
+  return { isSpam: false }
+}
+
+// Disposable email domains (common ones used by spammers)
+const DISPOSABLE_EMAIL_DOMAINS = [
+  'tempmail.com', 'throwaway.email', 'guerrillamail.com', 'mailinator.com',
+  '10minutemail.com', 'temp-mail.org', 'fakeinbox.com', 'trashmail.com',
+  'yopmail.com', 'getnada.com', 'maildrop.cc', 'dispostable.com',
+]
+
+function isDisposableEmail(email: string): boolean {
+  const domain = email.split('@')[1]?.toLowerCase()
+  return DISPOSABLE_EMAIL_DOMAINS.some(d => domain?.includes(d))
+}
+
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json()
@@ -420,6 +472,35 @@ export async function POST(request: NextRequest) {
           { status: 200 }
         )
       }
+    }
+
+    // Spam/malware detection: Check message content
+    const spamCheck = detectSpam(message || '')
+    if (spamCheck.isSpam) {
+      console.warn(`Spam detected: ${spamCheck.reason}`)
+      return NextResponse.json(
+        { success: true, message: 'Message received successfully!' },
+        { status: 200 }
+      )
+    }
+
+    // Also check name field for spam (some bots put links there)
+    const nameSpamCheck = detectSpam(name || '')
+    if (nameSpamCheck.isSpam) {
+      console.warn(`Spam in name field: ${nameSpamCheck.reason}`)
+      return NextResponse.json(
+        { success: true, message: 'Message received successfully!' },
+        { status: 200 }
+      )
+    }
+
+    // Check for disposable email addresses
+    if (email && isDisposableEmail(email)) {
+      console.warn(`Disposable email detected: ${email}`)
+      return NextResponse.json(
+        { error: 'Please use a valid business or personal email address' },
+        { status: 400 }
+      )
     }
 
     // Validate required fields
