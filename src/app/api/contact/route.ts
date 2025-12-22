@@ -1,7 +1,16 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { Resend } from 'resend'
+import { SESClient, SendEmailCommand } from '@aws-sdk/client-ses'
 
-const resend = new Resend(process.env.RESEND_API_KEY)
+// Initialize SES client
+const ses = process.env.AWS_ACCESS_KEY_ID && process.env.AWS_SECRET_ACCESS_KEY
+  ? new SESClient({
+      region: process.env.AWS_REGION || 'us-east-1',
+      credentials: {
+        accessKeyId: process.env.AWS_ACCESS_KEY_ID,
+        secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
+      },
+    })
+  : null
 
 // Brand colors
 const BRAND_COLORS = {
@@ -21,6 +30,9 @@ const COMPANY = {
   website: process.env.NEXT_PUBLIC_SITE_URL || 'https://theperfectevent.com',
   logo: `${process.env.NEXT_PUBLIC_SITE_URL || 'https://theperfectevent.com'}/images/logo.png`,
 }
+
+const FROM_EMAIL = process.env.FROM_EMAIL || 'leads@theperfectevent.com'
+const FROM_NAME = process.env.FROM_NAME || 'The Perfect Event'
 
 // Email wrapper template with branding
 function emailWrapper(content: string, preheader: string = '') {
@@ -325,6 +337,59 @@ function confirmationEmailTemplate(name: string, eventType: string) {
   return emailWrapper(content, `Thank you for contacting The Perfect Event! We'll be in touch within 24 hours.`)
 }
 
+// Send email via SES
+async function sendViaSES(params: {
+  to: string[]
+  replyTo?: string
+  subject: string
+  html: string
+}) {
+  if (!ses) throw new Error('SES not configured')
+
+  const command = new SendEmailCommand({
+    Source: `${FROM_NAME} <${FROM_EMAIL}>`,
+    Destination: {
+      ToAddresses: params.to,
+    },
+    ReplyToAddresses: params.replyTo ? [params.replyTo] : undefined,
+    Message: {
+      Subject: {
+        Data: params.subject,
+        Charset: 'UTF-8',
+      },
+      Body: {
+        Html: {
+          Data: params.html,
+          Charset: 'UTF-8',
+        },
+      },
+    },
+  })
+
+  return ses.send(command)
+}
+
+// Send email via SES
+async function sendEmail(params: {
+  to: string[]
+  replyTo?: string
+  subject: string
+  html: string
+}) {
+  if (!ses) {
+    throw new Error('SES not configured - missing AWS credentials')
+  }
+
+  try {
+    await sendViaSES(params)
+    console.log('Email sent via SES to:', params.to.join(', '))
+    return { provider: 'ses' }
+  } catch (error) {
+    console.error('SES email failed:', error)
+    throw error
+  }
+}
+
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json()
@@ -350,17 +415,16 @@ export async function POST(request: NextRequest) {
     console.log('Message:', message)
     console.log('===================================')
 
-    // Only send emails if Resend API key is configured
-    if (process.env.RESEND_API_KEY) {
+    // Only send emails if SES is configured
+    if (ses) {
       // Parse multiple contact emails (comma-separated)
       const contactEmails = (process.env.CONTACT_EMAIL || 'sales@theperfectevent.com')
         .split(',')
-        .map(email => email.trim())
-        .filter(email => email.length > 0)
+        .map(e => e.trim())
+        .filter(e => e.length > 0)
 
       // Send notification email to all contact emails
-      await resend.emails.send({
-        from: 'The Perfect Event <leads@theperfectevent.com>',
+      await sendEmail({
         to: contactEmails,
         replyTo: email,
         subject: `New Inquiry: ${eventType} - ${name}`,
@@ -377,16 +441,15 @@ export async function POST(request: NextRequest) {
       })
 
       // Send confirmation email to the customer
-      await resend.emails.send({
-        from: 'The Perfect Event <leads@theperfectevent.com>',
-        to: email,
+      await sendEmail({
+        to: [email],
         subject: `Thank you for contacting The Perfect Event!`,
         html: confirmationEmailTemplate(name, eventType),
       })
 
       console.log('Emails sent successfully to:', contactEmails.join(', '))
     } else {
-      console.log('Resend API key not configured - skipping email send')
+      console.error('SES not configured - AWS credentials missing. Emails not sent.')
     }
 
     return NextResponse.json(
