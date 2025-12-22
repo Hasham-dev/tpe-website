@@ -57,7 +57,7 @@ export const SERVICES_DATA: Service[] = [
     title: 'Venue Booking',
     description: 'Expert venue sourcing and booking assistance to find the perfect location for your event.',
     longDescription: 'Finding the perfect venue is one of the most important decisions in event planning. Our venue booking service takes the stress out of this process by leveraging our extensive network and 17+ years of industry relationships. We help you identify, evaluate, and secure venues that match your vision, guest count, budget, and logistical requirements. From intimate private estates to grand ballrooms, beachfront locations to vineyard settings, we know the best options throughout Southern California and beyond.',
-    image: '/images/services/venue-booking.jpg',
+    image: '/images/services/venue.jpg',
     features: [
       'Personalized venue recommendations based on your vision',
       'Site visits and venue tours coordination',

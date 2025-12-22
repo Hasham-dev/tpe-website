@@ -41,7 +41,7 @@ export const SERVICES = [
     id: 'venue-booking',
     title: 'Venue Booking',
     description: 'Expert venue sourcing and booking assistance to find the perfect location for your event.',
-    image: '/images/services/venue-booking.jpg',
+    image: '/images/services/venue.jpg',
     href: '/services/venue-booking',
   },
   {
