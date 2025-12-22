@@ -4,7 +4,7 @@ import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
-import { Send, Phone, Mail, MapPin, CheckCircle, Clock, Shield, User, Calendar } from 'lucide-react'
+import { Send, Phone, Mail, MapPin, CheckCircle, Clock, Shield, User, Calendar, RotateCcw } from 'lucide-react'
 import { Section, SectionHeader } from '@/components/ui/Section'
 import { Container } from '@/components/ui/Container'
 import { Button } from '@/components/ui/Button'
@@ -38,6 +38,11 @@ export function Contact() {
   } = useForm<ContactFormData>({
     resolver: zodResolver(contactSchema),
   })
+
+  const handleReset = () => {
+    reset()
+    setSubmitError(null)
+  }
 
   const onSubmit = async (data: ContactFormData) => {
     setSubmitError(null)
@@ -343,10 +348,22 @@ export function Contact() {
               )}
 
               <div className="mt-6">
-                <Button type="submit" size="md" isLoading={isSubmitting} className="w-full sm:w-auto">
-                  <Send size={16} className="mr-2" />
-                  Get My Free Quote
-                </Button>
+                <div className="flex flex-wrap items-center gap-3">
+                  <Button type="submit" size="md" isLoading={isSubmitting} className="w-full sm:w-auto">
+                    <Send size={16} className="mr-2" />
+                    Get My Free Quote
+                  </Button>
+                  <Button
+                    type="button"
+                    onClick={handleReset}
+                    variant="ghost"
+                    size="md"
+                    className="text-gray-500 hover:text-gray-700"
+                  >
+                    <RotateCcw size={16} className="mr-2" />
+                    Clear Form
+                  </Button>
+                </div>
 
                 {/* Trust Signals */}
                 <div className="mt-4 flex flex-wrap items-center justify-start gap-x-4 gap-y-2 text-xs text-gray-500">

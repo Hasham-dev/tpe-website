@@ -5,7 +5,7 @@ import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
 import { motion, AnimatePresence } from 'framer-motion'
-import { CheckCircle, ChevronLeft, ChevronRight, Calendar, Users, DollarSign } from 'lucide-react'
+import { CheckCircle, ChevronLeft, ChevronRight, Calendar, Users, DollarSign, RotateCcw } from 'lucide-react'
 import { Button } from './Button'
 import { cn } from '@/lib/utils'
 import { EVENT_TYPES, SERVICES } from '@/lib/constants'
@@ -115,6 +115,12 @@ export function QuoteWizard() {
     if (currentStep > 1) {
       setCurrentStep(currentStep - 1)
     }
+  }
+
+  const handleReset = () => {
+    reset()
+    setCurrentStep(1)
+    setSubmitError(null)
   }
 
   const toggleService = (serviceId: string) => {
@@ -505,16 +511,30 @@ export function QuoteWizard() {
 
         {/* Navigation Buttons */}
         <div className="flex justify-between items-center mt-12">
-          <Button
-            type="button"
-            onClick={handleBack}
-            variant="outline"
-            disabled={currentStep === 1}
-            className={cn(currentStep === 1 && 'invisible')}
-          >
-            <ChevronLeft className="w-5 h-5 mr-1" />
-            Back
-          </Button>
+          <div className="flex items-center gap-2">
+            <Button
+              type="button"
+              onClick={handleBack}
+              variant="outline"
+              disabled={currentStep === 1}
+              className={cn(currentStep === 1 && 'invisible')}
+            >
+              <ChevronLeft className="w-5 h-5 mr-1" />
+              Back
+            </Button>
+            {currentStep > 1 && (
+              <Button
+                type="button"
+                onClick={handleReset}
+                variant="ghost"
+                size="sm"
+                className="text-gray-500 hover:text-gray-700"
+              >
+                <RotateCcw className="w-4 h-4 mr-1" />
+                Start Over
+              </Button>
+            )}
+          </div>
 
           <div className="text-sm text-gray-500">
             Step {currentStep} of {STEPS.length}

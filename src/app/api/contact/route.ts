@@ -1,8 +1,329 @@
 import { NextRequest, NextResponse } from 'next/server'
+import { Resend } from 'resend'
 
-// TODO: Add Resend integration later
-// import { Resend } from 'resend'
-// const resend = new Resend(process.env.RESEND_API_KEY)
+const resend = new Resend(process.env.RESEND_API_KEY)
+
+// Brand colors
+const BRAND_COLORS = {
+  primary: '#1a1a2e',
+  accent: '#c9a227',
+  cream: '#faf9f6',
+  text: '#333333',
+  textLight: '#666666',
+}
+
+// Company info
+const COMPANY = {
+  name: 'The Perfect Event',
+  phone: '877-345-7500',
+  email: 'info@theperfectevent.com',
+  address: '3133 E South St, Long Beach, CA 90805',
+  website: process.env.NEXT_PUBLIC_SITE_URL || 'https://theperfectevent.com',
+  logo: `${process.env.NEXT_PUBLIC_SITE_URL || 'https://theperfectevent.com'}/images/logo.png`,
+}
+
+// Email wrapper template with branding
+function emailWrapper(content: string, preheader: string = '') {
+  return `
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>${COMPANY.name}</title>
+  <!--[if mso]>
+  <noscript>
+    <xml>
+      <o:OfficeDocumentSettings>
+        <o:PixelsPerInch>96</o:PixelsPerInch>
+      </o:OfficeDocumentSettings>
+    </xml>
+  </noscript>
+  <![endif]-->
+  <style>
+    body { margin: 0; padding: 0; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; }
+    table { border-spacing: 0; }
+    td { padding: 0; }
+    img { border: 0; display: block; }
+    .wrapper { width: 100%; table-layout: fixed; background-color: #f5f5f5; padding: 40px 0; }
+    .main { max-width: 600px; margin: 0 auto; background-color: #ffffff; border-radius: 8px; overflow: hidden; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); }
+    @media screen and (max-width: 600px) {
+      .main { width: 100% !important; border-radius: 0 !important; }
+      .content { padding: 24px !important; }
+    }
+  </style>
+</head>
+<body>
+  <!-- Preheader text (hidden) -->
+  <div style="display: none; max-height: 0; overflow: hidden;">
+    ${preheader}
+    &nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;
+  </div>
+
+  <div class="wrapper">
+    <table class="main" align="center" width="600" cellpadding="0" cellspacing="0" role="presentation">
+      <!-- Header with Logo -->
+      <tr>
+        <td style="background-color: ${BRAND_COLORS.primary}; padding: 32px; text-align: center;">
+          <img src="${COMPANY.logo}" alt="${COMPANY.name}" width="200" style="max-width: 200px; height: auto; margin: 0 auto;" />
+        </td>
+      </tr>
+
+      <!-- Gold Accent Bar -->
+      <tr>
+        <td style="background-color: ${BRAND_COLORS.accent}; height: 4px;"></td>
+      </tr>
+
+      <!-- Content -->
+      <tr>
+        <td class="content" style="padding: 40px;">
+          ${content}
+        </td>
+      </tr>
+
+      <!-- Footer -->
+      <tr>
+        <td style="background-color: ${BRAND_COLORS.cream}; padding: 32px; text-align: center; border-top: 1px solid #e5e5e5;">
+          <p style="margin: 0 0 12px 0; color: ${BRAND_COLORS.text}; font-size: 14px; font-weight: 600;">
+            ${COMPANY.name}
+          </p>
+          <p style="margin: 0 0 8px 0; color: ${BRAND_COLORS.textLight}; font-size: 13px;">
+            ${COMPANY.address}
+          </p>
+          <p style="margin: 0 0 16px 0; color: ${BRAND_COLORS.textLight}; font-size: 13px;">
+            <a href="tel:${COMPANY.phone}" style="color: ${BRAND_COLORS.accent}; text-decoration: none;">${COMPANY.phone}</a>
+            &nbsp;|&nbsp;
+            <a href="mailto:${COMPANY.email}" style="color: ${BRAND_COLORS.accent}; text-decoration: none;">${COMPANY.email}</a>
+          </p>
+          <p style="margin: 0; color: ${BRAND_COLORS.textLight}; font-size: 12px;">
+            © ${new Date().getFullYear()} ${COMPANY.name}. All rights reserved.
+          </p>
+        </td>
+      </tr>
+    </table>
+  </div>
+</body>
+</html>
+  `.trim()
+}
+
+// Internal notification email template
+function notificationEmailTemplate(data: {
+  name: string
+  email: string
+  phone?: string
+  eventType: string
+  eventDate?: string
+  guestCount?: string
+  budgetRange?: string
+  message: string
+}) {
+  const content = `
+    <h1 style="margin: 0 0 24px 0; color: ${BRAND_COLORS.primary}; font-size: 24px; font-weight: 600;">
+      New Inquiry Received
+    </h1>
+
+    <p style="margin: 0 0 24px 0; color: ${BRAND_COLORS.textLight}; font-size: 15px; line-height: 1.6;">
+      You have received a new inquiry from your website contact form.
+    </p>
+
+    <!-- Contact Information -->
+    <table width="100%" cellpadding="0" cellspacing="0" style="margin-bottom: 24px; background-color: ${BRAND_COLORS.cream}; border-radius: 8px; overflow: hidden;">
+      <tr>
+        <td style="padding: 20px;">
+          <h2 style="margin: 0 0 16px 0; color: ${BRAND_COLORS.primary}; font-size: 16px; font-weight: 600; text-transform: uppercase; letter-spacing: 1px;">
+            Contact Information
+          </h2>
+          <table width="100%" cellpadding="0" cellspacing="0">
+            <tr>
+              <td style="padding: 8px 0; color: ${BRAND_COLORS.textLight}; font-size: 14px; width: 120px;">Name:</td>
+              <td style="padding: 8px 0; color: ${BRAND_COLORS.text}; font-size: 14px; font-weight: 500;">${data.name}</td>
+            </tr>
+            <tr>
+              <td style="padding: 8px 0; color: ${BRAND_COLORS.textLight}; font-size: 14px;">Email:</td>
+              <td style="padding: 8px 0; color: ${BRAND_COLORS.text}; font-size: 14px;">
+                <a href="mailto:${data.email}" style="color: ${BRAND_COLORS.accent}; text-decoration: none;">${data.email}</a>
+              </td>
+            </tr>
+            ${data.phone ? `
+            <tr>
+              <td style="padding: 8px 0; color: ${BRAND_COLORS.textLight}; font-size: 14px;">Phone:</td>
+              <td style="padding: 8px 0; color: ${BRAND_COLORS.text}; font-size: 14px;">
+                <a href="tel:${data.phone}" style="color: ${BRAND_COLORS.accent}; text-decoration: none;">${data.phone}</a>
+              </td>
+            </tr>
+            ` : ''}
+          </table>
+        </td>
+      </tr>
+    </table>
+
+    <!-- Event Details -->
+    <table width="100%" cellpadding="0" cellspacing="0" style="margin-bottom: 24px; background-color: ${BRAND_COLORS.cream}; border-radius: 8px; overflow: hidden;">
+      <tr>
+        <td style="padding: 20px;">
+          <h2 style="margin: 0 0 16px 0; color: ${BRAND_COLORS.primary}; font-size: 16px; font-weight: 600; text-transform: uppercase; letter-spacing: 1px;">
+            Event Details
+          </h2>
+          <table width="100%" cellpadding="0" cellspacing="0">
+            <tr>
+              <td style="padding: 8px 0; color: ${BRAND_COLORS.textLight}; font-size: 14px; width: 120px;">Event Type:</td>
+              <td style="padding: 8px 0; color: ${BRAND_COLORS.text}; font-size: 14px; font-weight: 500;">${data.eventType}</td>
+            </tr>
+            ${data.eventDate ? `
+            <tr>
+              <td style="padding: 8px 0; color: ${BRAND_COLORS.textLight}; font-size: 14px;">Event Date:</td>
+              <td style="padding: 8px 0; color: ${BRAND_COLORS.text}; font-size: 14px;">${data.eventDate}</td>
+            </tr>
+            ` : ''}
+            ${data.guestCount ? `
+            <tr>
+              <td style="padding: 8px 0; color: ${BRAND_COLORS.textLight}; font-size: 14px;">Guest Count:</td>
+              <td style="padding: 8px 0; color: ${BRAND_COLORS.text}; font-size: 14px;">${data.guestCount}</td>
+            </tr>
+            ` : ''}
+            ${data.budgetRange ? `
+            <tr>
+              <td style="padding: 8px 0; color: ${BRAND_COLORS.textLight}; font-size: 14px;">Budget Range:</td>
+              <td style="padding: 8px 0; color: ${BRAND_COLORS.text}; font-size: 14px;">${data.budgetRange}</td>
+            </tr>
+            ` : ''}
+          </table>
+        </td>
+      </tr>
+    </table>
+
+    <!-- Message -->
+    <table width="100%" cellpadding="0" cellspacing="0" style="margin-bottom: 24px; background-color: ${BRAND_COLORS.cream}; border-radius: 8px; overflow: hidden;">
+      <tr>
+        <td style="padding: 20px;">
+          <h2 style="margin: 0 0 16px 0; color: ${BRAND_COLORS.primary}; font-size: 16px; font-weight: 600; text-transform: uppercase; letter-spacing: 1px;">
+            Message
+          </h2>
+          <p style="margin: 0; color: ${BRAND_COLORS.text}; font-size: 14px; line-height: 1.7; white-space: pre-wrap;">${data.message}</p>
+        </td>
+      </tr>
+    </table>
+
+    <!-- Quick Actions -->
+    <table width="100%" cellpadding="0" cellspacing="0">
+      <tr>
+        <td align="center" style="padding-top: 8px;">
+          <a href="mailto:${data.email}?subject=Re: Your ${data.eventType} Inquiry - The Perfect Event"
+             style="display: inline-block; padding: 14px 32px; background-color: ${BRAND_COLORS.accent}; color: #ffffff; text-decoration: none; font-size: 14px; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; border-radius: 4px;">
+            Reply to ${data.name.split(' ')[0]}
+          </a>
+        </td>
+      </tr>
+    </table>
+  `
+
+  return emailWrapper(content, `New inquiry from ${data.name} for ${data.eventType}`)
+}
+
+// Customer confirmation email template
+function confirmationEmailTemplate(name: string, eventType: string) {
+  const firstName = name.split(' ')[0]
+
+  const content = `
+    <h1 style="margin: 0 0 24px 0; color: ${BRAND_COLORS.primary}; font-size: 28px; font-weight: 600; text-align: center;">
+      Thank You, ${firstName}!
+    </h1>
+
+    <p style="margin: 0 0 20px 0; color: ${BRAND_COLORS.text}; font-size: 16px; line-height: 1.7; text-align: center;">
+      We've received your inquiry about your <strong>${eventType}</strong> and are excited to help bring your vision to life!
+    </p>
+
+    <div style="text-align: center; margin: 32px 0;">
+      <div style="display: inline-block; background-color: ${BRAND_COLORS.cream}; border-radius: 8px; padding: 24px 40px;">
+        <p style="margin: 0 0 8px 0; color: ${BRAND_COLORS.textLight}; font-size: 14px; text-transform: uppercase; letter-spacing: 1px;">
+          What's Next?
+        </p>
+        <p style="margin: 0; color: ${BRAND_COLORS.accent}; font-size: 24px; font-weight: 600;">
+          We'll respond within 24 hours
+        </p>
+      </div>
+    </div>
+
+    <p style="margin: 0 0 24px 0; color: ${BRAND_COLORS.text}; font-size: 15px; line-height: 1.7;">
+      One of our experienced event specialists will review your requirements and reach out to discuss how we can make your event truly unforgettable.
+    </p>
+
+    <!-- What We Offer -->
+    <table width="100%" cellpadding="0" cellspacing="0" style="margin: 32px 0; background-color: ${BRAND_COLORS.cream}; border-radius: 8px; overflow: hidden;">
+      <tr>
+        <td style="padding: 24px;">
+          <h2 style="margin: 0 0 20px 0; color: ${BRAND_COLORS.primary}; font-size: 18px; font-weight: 600; text-align: center;">
+            Why Choose The Perfect Event?
+          </h2>
+          <table width="100%" cellpadding="0" cellspacing="0">
+            <tr>
+              <td style="padding: 12px 0; border-bottom: 1px solid #e5e5e5;">
+                <table cellpadding="0" cellspacing="0">
+                  <tr>
+                    <td style="width: 40px; vertical-align: top;">
+                      <div style="width: 24px; height: 24px; background-color: ${BRAND_COLORS.accent}; border-radius: 50%; text-align: center; line-height: 24px; color: white; font-size: 12px;">✓</div>
+                    </td>
+                    <td style="color: ${BRAND_COLORS.text}; font-size: 14px; line-height: 1.5;">
+                      <strong>25+ Years of Excellence</strong> - Trusted by thousands of clients
+                    </td>
+                  </tr>
+                </table>
+              </td>
+            </tr>
+            <tr>
+              <td style="padding: 12px 0; border-bottom: 1px solid #e5e5e5;">
+                <table cellpadding="0" cellspacing="0">
+                  <tr>
+                    <td style="width: 40px; vertical-align: top;">
+                      <div style="width: 24px; height: 24px; background-color: ${BRAND_COLORS.accent}; border-radius: 50%; text-align: center; line-height: 24px; color: white; font-size: 12px;">✓</div>
+                    </td>
+                    <td style="color: ${BRAND_COLORS.text}; font-size: 14px; line-height: 1.5;">
+                      <strong>Full-Service Production</strong> - From concept to execution
+                    </td>
+                  </tr>
+                </table>
+              </td>
+            </tr>
+            <tr>
+              <td style="padding: 12px 0;">
+                <table cellpadding="0" cellspacing="0">
+                  <tr>
+                    <td style="width: 40px; vertical-align: top;">
+                      <div style="width: 24px; height: 24px; background-color: ${BRAND_COLORS.accent}; border-radius: 50%; text-align: center; line-height: 24px; color: white; font-size: 12px;">✓</div>
+                    </td>
+                    <td style="color: ${BRAND_COLORS.text}; font-size: 14px; line-height: 1.5;">
+                      <strong>Customized Solutions</strong> - Tailored to your unique vision
+                    </td>
+                  </tr>
+                </table>
+              </td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+    </table>
+
+    <p style="margin: 0 0 24px 0; color: ${BRAND_COLORS.textLight}; font-size: 14px; line-height: 1.7; text-align: center;">
+      Have an urgent question? Call us directly at
+      <a href="tel:${COMPANY.phone}" style="color: ${BRAND_COLORS.accent}; text-decoration: none; font-weight: 600;">${COMPANY.phone}</a>
+    </p>
+
+    <table width="100%" cellpadding="0" cellspacing="0">
+      <tr>
+        <td align="center">
+          <a href="${COMPANY.website}/portfolio"
+             style="display: inline-block; padding: 14px 32px; background-color: ${BRAND_COLORS.primary}; color: #ffffff; text-decoration: none; font-size: 14px; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; border-radius: 4px;">
+            View Our Portfolio
+          </a>
+        </td>
+      </tr>
+    </table>
+  `
+
+  return emailWrapper(content, `Thank you for contacting The Perfect Event! We'll be in touch within 24 hours.`)
+}
 
 export async function POST(request: NextRequest) {
   try {
@@ -29,43 +350,44 @@ export async function POST(request: NextRequest) {
     console.log('Message:', message)
     console.log('===================================')
 
-    // TODO: Uncomment when Resend is set up
-    /*
-    // Send email to the company
-    await resend.emails.send({
-      from: 'The Perfect Event <noreply@theperfectevent.com>',
-      to: process.env.CONTACT_EMAIL || 'sales@theperfectevent.com',
-      reply_to: email,
-      subject: `New Inquiry: ${eventType} - ${name}`,
-      html: `
-        <h2>New Contact Form Submission</h2>
-        <h3>Contact Information</h3>
-        <p><strong>Name:</strong> ${name}</p>
-        <p><strong>Email:</strong> ${email}</p>
-        ${phone ? `<p><strong>Phone:</strong> ${phone}</p>` : ''}
-        <h3>Event Details</h3>
-        <p><strong>Event Type:</strong> ${eventType}</p>
-        ${eventDate ? `<p><strong>Event Date:</strong> ${eventDate}</p>` : ''}
-        ${guestCount ? `<p><strong>Guest Count:</strong> ${guestCount}</p>` : ''}
-        ${budgetRange ? `<p><strong>Budget Range:</strong> ${budgetRange}</p>` : ''}
-        <h3>Message</h3>
-        <p>${message.replace(/\n/g, '<br>')}</p>
-      `,
-    })
+    // Only send emails if Resend API key is configured
+    if (process.env.RESEND_API_KEY) {
+      // Parse multiple contact emails (comma-separated)
+      const contactEmails = (process.env.CONTACT_EMAIL || 'sales@theperfectevent.com')
+        .split(',')
+        .map(email => email.trim())
+        .filter(email => email.length > 0)
 
-    // Send confirmation email to the user
-    await resend.emails.send({
-      from: 'The Perfect Event <noreply@theperfectevent.com>',
-      to: email,
-      subject: 'Thank you for contacting The Perfect Event',
-      html: `
-        <h2>Thank you for reaching out!</h2>
-        <p>Hi ${name},</p>
-        <p>We've received your inquiry and will get back to you within 24 hours.</p>
-        <p>Best regards,<br>The Perfect Event Team</p>
-      `,
-    })
-    */
+      // Send notification email to all contact emails
+      await resend.emails.send({
+        from: 'The Perfect Event <leads@theperfectevent.com>',
+        to: contactEmails,
+        replyTo: email,
+        subject: `New Inquiry: ${eventType} - ${name}`,
+        html: notificationEmailTemplate({
+          name,
+          email,
+          phone,
+          eventType,
+          eventDate,
+          guestCount,
+          budgetRange,
+          message,
+        }),
+      })
+
+      // Send confirmation email to the customer
+      await resend.emails.send({
+        from: 'The Perfect Event <leads@theperfectevent.com>',
+        to: email,
+        subject: `Thank you for contacting The Perfect Event!`,
+        html: confirmationEmailTemplate(name, eventType),
+      })
+
+      console.log('Emails sent successfully to:', contactEmails.join(', '))
+    } else {
+      console.log('Resend API key not configured - skipping email send')
+    }
 
     return NextResponse.json(
       { success: true, message: 'Message received successfully!' },
