@@ -7,80 +7,9 @@ import { Section, SectionHeader } from '@/components/ui/Section'
 import { Container } from '@/components/ui/Container'
 import { Button } from '@/components/ui/Button'
 import { FolderModal } from '@/components/ui/FolderModal'
+import { CoverImage } from '@/components/ui/DriveImage'
+import { FolderSkeleton } from '@/components/ui/Skeleton'
 import { useDriveFolders, useFolderImages, DriveFolder } from '@/hooks/useDriveImages'
-
-// Shimmer placeholder component
-function ShimmerPlaceholder() {
-  return (
-    <div className="absolute inset-0 bg-gradient-to-br from-gray-200 via-gray-100 to-gray-200">
-      <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/40 to-transparent shimmer-animation" />
-    </div>
-  )
-}
-
-// Simple image with fallback for cover images
-function CoverImage({
-  src,
-  fallbackSrc,
-  alt,
-  className = '',
-}: {
-  src: string
-  fallbackSrc?: string
-  alt: string
-  className?: string
-}) {
-  const [currentSrc, setCurrentSrc] = useState(src)
-  const [hasError, setHasError] = useState(false)
-  const [isLoading, setIsLoading] = useState(true)
-  const [fallbackAttempted, setFallbackAttempted] = useState(false)
-
-  const handleError = () => {
-    if (!fallbackAttempted && fallbackSrc) {
-      setCurrentSrc(fallbackSrc)
-      setFallbackAttempted(true)
-    } else if (!hasError) {
-      setHasError(true)
-      setIsLoading(false)
-    }
-  }
-
-  if (hasError) {
-    return (
-      <div className="w-full h-full bg-gradient-to-br from-gray-100 to-gray-200 flex items-center justify-center">
-        <FolderOpen className="w-16 h-16 text-gray-300" />
-      </div>
-    )
-  }
-
-  return (
-    <>
-      {isLoading && <ShimmerPlaceholder />}
-      <Image
-        src={currentSrc}
-        alt={alt}
-        fill
-        className={`${className} transition-opacity duration-500 ${isLoading ? 'opacity-0' : 'opacity-100'}`}
-        unoptimized
-        onError={handleError}
-        onLoad={() => setIsLoading(false)}
-      />
-    </>
-  )
-}
-
-// Skeleton component for folder cards
-function FolderSkeleton() {
-  return (
-    <div className="relative overflow-hidden rounded-2xl bg-gray-200 animate-pulse">
-      <div className="aspect-[4/3]" />
-      <div className="absolute bottom-0 left-0 right-0 p-4 space-y-2">
-        <div className="h-5 bg-gray-300 rounded w-2/3" />
-        <div className="h-3 bg-gray-300 rounded w-1/3" />
-      </div>
-    </div>
-  )
-}
 
 // Fallback folders if Drive API fails
 const fallbackFolders = [

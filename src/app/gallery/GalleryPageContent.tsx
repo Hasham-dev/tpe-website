@@ -1,97 +1,15 @@
 'use client'
 
 import { useState } from 'react'
-import Image from 'next/image'
 import Link from 'next/link'
 import { FolderOpen, Images, Lock, GraduationCap } from 'lucide-react'
 import { Section, SectionHeader } from '@/components/ui/Section'
 import { Container } from '@/components/ui/Container'
 import { FolderModal } from '@/components/ui/FolderModal'
+import { CoverImage } from '@/components/ui/DriveImage'
+import { FolderSkeleton, SmallFolderSkeleton } from '@/components/ui/Skeleton'
 import { useDriveFolders, useFolderImages, DriveFolder } from '@/hooks/useDriveImages'
 import { useProtectedFolders } from '@/hooks/useProtectedFolder'
-
-// Shimmer placeholder component
-function ShimmerPlaceholder() {
-  return (
-    <div className="absolute inset-0 bg-gradient-to-br from-gray-200 via-gray-100 to-gray-200">
-      <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/40 to-transparent shimmer-animation" />
-    </div>
-  )
-}
-
-// Cover image with shimmer
-function CoverImage({
-  src,
-  fallbackSrc,
-  alt,
-  className = '',
-}: {
-  src: string | null
-  fallbackSrc?: string
-  alt: string
-  className?: string
-}) {
-  const [currentSrc, setCurrentSrc] = useState(src || '')
-  const [hasError, setHasError] = useState(!src)
-  const [isLoading, setIsLoading] = useState(!!src)
-  const [fallbackAttempted, setFallbackAttempted] = useState(false)
-
-  const handleError = () => {
-    if (!fallbackAttempted && fallbackSrc) {
-      setCurrentSrc(fallbackSrc)
-      setFallbackAttempted(true)
-    } else if (!hasError) {
-      setHasError(true)
-      setIsLoading(false)
-    }
-  }
-
-  if (hasError || !src) {
-    return (
-      <div className="w-full h-full bg-gradient-to-br from-gray-100 to-gray-200 flex items-center justify-center">
-        <FolderOpen className="w-16 h-16 text-gray-300" />
-      </div>
-    )
-  }
-
-  return (
-    <>
-      {isLoading && <ShimmerPlaceholder />}
-      <Image
-        src={currentSrc}
-        alt={alt}
-        fill
-        className={`${className} transition-opacity duration-500 ${isLoading ? 'opacity-0' : 'opacity-100'}`}
-        unoptimized
-        onError={handleError}
-        onLoad={() => setIsLoading(false)}
-      />
-    </>
-  )
-}
-
-// Skeleton for folder cards
-function FolderSkeleton() {
-  return (
-    <div className="relative overflow-hidden rounded-2xl bg-gray-200 animate-pulse">
-      <div className="aspect-[4/3]" />
-      <div className="absolute bottom-0 left-0 right-0 p-5 space-y-2">
-        <div className="h-5 bg-gray-300 rounded w-2/3" />
-        <div className="h-3 bg-gray-300 rounded w-1/3" />
-      </div>
-    </div>
-  )
-}
-
-// Small skeleton for student galleries
-function SmallFolderSkeleton() {
-  return (
-    <div className="relative overflow-hidden rounded-xl bg-gray-200 animate-pulse p-6">
-      <div className="h-4 bg-gray-300 rounded w-2/3 mx-auto mb-2" />
-      <div className="h-3 bg-gray-300 rounded w-1/2 mx-auto" />
-    </div>
-  )
-}
 
 export default function GalleryPageContent() {
   const [selectedFolder, setSelectedFolder] = useState<DriveFolder | null>(null)

@@ -1,13 +1,13 @@
 import { Metadata } from 'next'
 import Image from 'next/image'
 import { notFound } from 'next/navigation'
-import { CheckCircle, Star, Quote } from 'lucide-react'
+import { CheckCircle } from 'lucide-react'
 import { Container } from '@/components/ui/Container'
 import { Section, SectionHeader } from '@/components/ui/Section'
 import { Button } from '@/components/ui/Button'
-import { Breadcrumb } from '@/components/ui/Breadcrumb'
-import { EVENTS_DATA, getEventBySlug, getAllEventSlugs } from '@/lib/events'
-import { cn } from '@/lib/utils'
+import { PageHero, TestimonialCard } from '@/components/ui'
+import { PageCTA } from '@/components/sections'
+import { getEventBySlug, getAllEventSlugs } from '@/lib/events'
 import { EventTypeSchema, BreadcrumbSchema } from '@/components/seo/StructuredData'
 
 const BASE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://theperfectevent.com'
@@ -78,38 +78,21 @@ export default function EventTypePage({ params }: EventPageProps) {
       />
 
       {/* Hero Section */}
-      <Section background="default" spacing="none" className="relative">
-        <div className="relative h-[500px] md:h-[600px]">
-          <Image
-            src={event.image}
-            alt={event.title}
-            fill
-            className="object-cover"
-            priority
-          />
-          <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/50 to-transparent" />
-          <Container className="relative h-full flex flex-col justify-center">
-            <Breadcrumb
-              items={[
-                { label: 'Event Types', href: '/#events' },
-                { label: event.title },
-              ]}
-              className="mb-6 text-white/80"
-            />
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-serif font-bold text-white mb-4 max-w-3xl">
-              {event.title}
-            </h1>
-            <p className="text-xl md:text-2xl text-white/90 max-w-2xl mb-8">
-              {event.description}
-            </p>
-            <div>
-              <Button href="/quote" variant="secondary" size="lg">
-                Get Free Quote
-              </Button>
-            </div>
-          </Container>
-        </div>
-      </Section>
+      <PageHero
+        title={event.title}
+        description={event.description}
+        image={event.image}
+        height="lg"
+        gradient="left"
+        breadcrumbs={[
+          { label: 'Event Types', href: '/#events' },
+          { label: event.title },
+        ]}
+      >
+        <Button href="/quote" variant="secondary" size="lg">
+          Get Free Quote
+        </Button>
+      </PageHero>
 
       {/* Stats Section */}
       {event.stats && (
@@ -203,38 +186,7 @@ export default function EventTypePage({ params }: EventPageProps) {
       <Section background="accent" spacing="lg">
         <Container>
           <div className="max-w-4xl mx-auto">
-            <div className="bg-white rounded-2xl shadow-xl p-8 md:p-12">
-              <Quote className="w-12 h-12 text-brand-accent/20 mb-6" />
-
-              <div className="flex items-center gap-1 mb-6">
-                {[...Array(event.testimonial.rating)].map((_, i) => (
-                  <Star key={i} className="w-5 h-5 fill-yellow-400 text-yellow-400" />
-                ))}
-              </div>
-
-              <p className="text-lg md:text-xl text-gray-700 mb-8 leading-relaxed">
-                &ldquo;{event.testimonial.text}&rdquo;
-              </p>
-
-              <div className="flex items-center gap-4">
-                <div
-                  className={cn(
-                    'w-14 h-14 rounded-full flex items-center justify-center text-white font-bold text-sm',
-                    event.testimonial.color
-                  )}
-                >
-                  {event.testimonial.initials}
-                </div>
-                <div>
-                  <h4 className="font-semibold text-brand-primary">
-                    {event.testimonial.name}
-                  </h4>
-                  <p className="text-sm text-gray-500">
-                    {event.testimonial.event} • {event.testimonial.location}
-                  </p>
-                </div>
-              </div>
-            </div>
+            <TestimonialCard testimonial={event.testimonial} />
           </div>
         </Container>
       </Section>
@@ -289,31 +241,11 @@ export default function EventTypePage({ params }: EventPageProps) {
       </Section>
 
       {/* Final CTA */}
-      <Section background="dark" spacing="lg">
-        <Container>
-          <div className="max-w-3xl mx-auto text-center">
-            <h2 className="text-3xl md:text-4xl font-serif font-bold text-white mb-4">
-              Ready to Plan Your {event.title} Event?
-            </h2>
-            <p className="text-xl text-white/90 mb-8">
-              With over 17 years of experience and 600+ events annually, we have the expertise to make your {event.title.toLowerCase()} event unforgettable.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button href="/quote" variant="secondary" size="lg">
-                Get Free Quote
-              </Button>
-              <Button
-                href="tel:877-345-7500"
-                variant="outline"
-                size="lg"
-                className="border-white text-white hover:bg-white hover:text-brand-primary"
-              >
-                Call 877-345-7500
-              </Button>
-            </div>
-          </div>
-        </Container>
-      </Section>
+      <PageCTA
+        title={`Ready to Plan Your ${event.title} Event?`}
+        description={`With over 17 years of experience and 600+ events annually, we have the expertise to make your ${event.title.toLowerCase()} event unforgettable.`}
+        primaryAction={{ label: 'Get Free Quote', href: '/quote' }}
+      />
     </>
   )
 }

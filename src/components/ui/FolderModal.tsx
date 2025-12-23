@@ -1,80 +1,16 @@
 'use client'
 
 import { useState } from 'react'
-import Image from 'next/image'
-import { X, ChevronLeft, FolderOpen, ImageOff } from 'lucide-react'
+import { X, ChevronLeft, FolderOpen } from 'lucide-react'
 import { Lightbox, LightboxImage } from '@/components/ui/Lightbox'
-
-// Dark shimmer for modal
-function DarkShimmerPlaceholder() {
-  return (
-    <div className="absolute inset-0 bg-gradient-to-br from-gray-800 via-gray-700 to-gray-800">
-      <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent shimmer-animation" />
-    </div>
-  )
-}
+import { DriveImage } from '@/components/ui/DriveImage'
+import { ImageSkeleton } from '@/components/ui/Skeleton'
 
 export interface FolderImage {
   id: string
   name: string
   thumbnailUrl: string
   fallbackUrl?: string
-}
-
-// Image component with fallback support
-function ImageWithFallback({
-  image,
-  alt,
-  className = '',
-}: {
-  image: FolderImage
-  alt: string
-  className?: string
-}) {
-  const [currentSrc, setCurrentSrc] = useState(image.thumbnailUrl)
-  const [hasError, setHasError] = useState(false)
-  const [isLoading, setIsLoading] = useState(true)
-  const [fallbackAttempted, setFallbackAttempted] = useState(false)
-
-  const handleError = () => {
-    if (!fallbackAttempted && image.fallbackUrl) {
-      setCurrentSrc(image.fallbackUrl)
-      setFallbackAttempted(true)
-    } else if (!hasError) {
-      setHasError(true)
-      setIsLoading(false)
-    }
-  }
-
-  if (hasError) {
-    return (
-      <div className="w-full h-full bg-gray-800 flex items-center justify-center">
-        <ImageOff className="w-8 h-8 text-gray-600" />
-      </div>
-    )
-  }
-
-  return (
-    <>
-      {isLoading && <DarkShimmerPlaceholder />}
-      <Image
-        src={currentSrc}
-        alt={alt}
-        fill
-        className={`${className} transition-opacity duration-500 ${isLoading ? 'opacity-0' : 'opacity-100'}`}
-        unoptimized
-        onError={handleError}
-        onLoad={() => setIsLoading(false)}
-      />
-    </>
-  )
-}
-
-// Image skeleton
-function ImageSkeleton() {
-  return (
-    <div className="relative overflow-hidden rounded-lg bg-white/10 animate-pulse aspect-square" />
-  )
 }
 
 interface FolderModalProps {
@@ -138,7 +74,7 @@ export function FolderModal({
           {loading && (
             <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-3">
               {[...Array(15)].map((_, i) => (
-                <ImageSkeleton key={i} />
+                <ImageSkeleton key={i} dark />
               ))}
             </div>
           )}
@@ -154,9 +90,10 @@ export function FolderModal({
                     onClick={() => handleImageClick(index)}
                     className="relative overflow-hidden rounded-lg group aspect-square bg-white/5"
                   >
-                    <ImageWithFallback
+                    <DriveImage
                       image={image}
                       alt={image.name}
+                      variant="dark"
                       className="object-cover transition-all duration-300 group-hover:scale-105"
                     />
                     <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors" />

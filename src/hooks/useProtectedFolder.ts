@@ -1,21 +1,9 @@
 'use client'
 
 import { useState, useEffect, useCallback } from 'react'
-import { DriveImage } from './useDriveImages'
+import type { DriveImage, ProtectedFolder, VerifyPasswordResult } from '@/types'
 
 const SESSION_STORAGE_PREFIX = 'law_gallery_auth_'
-
-interface VerifyResult {
-  success: boolean
-  error?: string
-  remainingAttempts?: number
-}
-
-interface ProtectedFolder {
-  id: string
-  name: string
-  coverUrl: string | null
-}
 
 interface UseProtectedFoldersResult {
   folders: ProtectedFolder[]
@@ -26,7 +14,7 @@ interface UseProtectedFoldersResult {
 
 interface UseProtectedFolderAuthResult {
   isAuthenticated: (folderName: string) => boolean
-  verifyPassword: (folderName: string, password: string) => Promise<VerifyResult>
+  verifyPassword: (folderName: string, password: string) => Promise<VerifyPasswordResult>
   clearAuth: (folderName: string) => void
   getAuthToken: (folderName: string) => string | null
 }
@@ -91,7 +79,7 @@ export function useProtectedFolderAuth(): UseProtectedFolderAuthResult {
   const verifyPassword = useCallback(async (
     folderName: string,
     password: string
-  ): Promise<VerifyResult> => {
+  ): Promise<VerifyPasswordResult> => {
     try {
       const response = await fetch('/api/drive/verify-password', {
         method: 'POST',

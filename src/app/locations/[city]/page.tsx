@@ -2,12 +2,13 @@ import { Metadata } from 'next'
 import Image from 'next/image'
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
-import { MapPin, Phone, Mail, CheckCircle2, Star, ArrowRight, HelpCircle } from 'lucide-react'
+import { MapPin, Phone, Mail, CheckCircle2, ArrowRight } from 'lucide-react'
 import { getLocationBySlug, getAllLocationSlugs, LOCATIONS } from '@/lib/locations'
 import { SERVICES } from '@/lib/constants'
 import { Container } from '@/components/ui/Container'
 import { Button } from '@/components/ui/Button'
 import { Section, SectionHeader } from '@/components/ui/Section'
+import { TestimonialCard, FAQList } from '@/components/ui'
 import { FAQSchema } from '@/components/seo/StructuredData'
 
 interface LocationPageProps {
@@ -207,32 +208,7 @@ export default function LocationPage({ params }: LocationPageProps) {
                   What Our {location.name} Clients Say
                 </h2>
               </div>
-
-              <div className="bg-white rounded-2xl shadow-xl p-8 md:p-12">
-                <div className="flex items-center gap-1 mb-6">
-                  {[...Array(location.testimonial.rating)].map((_, i) => (
-                    <Star key={i} className="w-5 h-5 fill-yellow-400 text-yellow-400" />
-                  ))}
-                </div>
-
-                <blockquote className="text-lg md:text-xl text-gray-700 mb-8 leading-relaxed">
-                  &ldquo;{location.testimonial.text}&rdquo;
-                </blockquote>
-
-                <div className="flex items-center gap-4">
-                  <div className={`w-14 h-14 rounded-full flex items-center justify-center text-white font-bold ${location.testimonial.color}`}>
-                    {location.testimonial.initials}
-                  </div>
-                  <div>
-                    <h4 className="font-semibold text-brand-primary">
-                      {location.testimonial.name}
-                    </h4>
-                    <p className="text-sm text-gray-500">
-                      {location.testimonial.event} • {location.testimonial.location}
-                    </p>
-                  </div>
-                </div>
-              </div>
+              <TestimonialCard testimonial={location.testimonial} showQuoteIcon={false} />
             </div>
           </Container>
         </Section>
@@ -274,25 +250,7 @@ export default function LocationPage({ params }: LocationPageProps) {
                   title={`${location.name} Event Planning FAQs`}
                   description="Answers to frequently asked questions about our services in this area."
                 />
-
-                <div className="space-y-4">
-                  {location.faqs.map((faq, index) => (
-                    <div
-                      key={index}
-                      className="bg-brand-cream rounded-xl p-6 hover:shadow-md transition-shadow"
-                    >
-                      <div className="flex items-start gap-4">
-                        <HelpCircle className="w-6 h-6 text-brand-accent flex-shrink-0 mt-0.5" />
-                        <div>
-                          <h3 className="font-semibold text-brand-primary mb-2">
-                            {faq.question}
-                          </h3>
-                          <p className="text-gray-700">{faq.answer}</p>
-                        </div>
-                      </div>
-                    </div>
-                  ))}
-                </div>
+                <FAQList items={location.faqs} variant="card" showIcon />
               </div>
             </Container>
           </Section>

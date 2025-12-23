@@ -6,7 +6,8 @@ import { CheckCircle, ArrowRight, MessageCircle } from 'lucide-react'
 import { Container } from '@/components/ui/Container'
 import { Section } from '@/components/ui/Section'
 import { Button } from '@/components/ui/Button'
-import { Breadcrumb } from '@/components/ui/Breadcrumb'
+import { PageHero, FAQList } from '@/components/ui'
+import { PageCTA, SidebarCTA } from '@/components/sections'
 import { SERVICES_DATA, getServiceBySlug, getRelatedServices } from '@/lib/services'
 import { ServiceSchema, BreadcrumbSchema, FAQSchema } from '@/components/seo/StructuredData'
 
@@ -81,33 +82,16 @@ export default function ServicePage({ params }: ServicePageProps) {
       <FAQSchema faqs={service.faqs} />
 
       {/* Hero Section */}
-      <Section background="default" spacing="none" className="relative">
-        <div className="relative h-[400px] md:h-[500px]">
-          <Image
-            src={service.image}
-            alt={service.title}
-            fill
-            className="object-cover"
-            priority
-          />
-          <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/50 to-black/30" />
-          <Container className="relative h-full flex flex-col justify-center">
-            <Breadcrumb
-              items={[
-                { label: 'Services', href: '/services' },
-                { label: service.title },
-              ]}
-              className="mb-6 text-white/80"
-            />
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-serif font-bold text-white mb-4 max-w-3xl">
-              {service.title}
-            </h1>
-            <p className="text-xl text-white/90 max-w-2xl">
-              {service.description}
-            </p>
-          </Container>
-        </div>
-      </Section>
+      <PageHero
+        title={service.title}
+        description={service.description}
+        image={service.image}
+        height="sm"
+        breadcrumbs={[
+          { label: 'Services', href: '/services' },
+          { label: service.title },
+        ]}
+      />
 
       {/* Main Content */}
       <Section background="white" spacing="lg">
@@ -150,40 +134,13 @@ export default function ServicePage({ params }: ServicePageProps) {
                 <h3 className="text-2xl font-serif font-bold text-brand-primary mb-6">
                   Frequently Asked Questions
                 </h3>
-                <div className="space-y-6">
-                  {service.faqs.map((faq, index) => (
-                    <div key={index} className="border-b border-gray-200 pb-6 last:border-0">
-                      <h4 className="text-lg font-bold text-brand-primary mb-2">
-                        {faq.question}
-                      </h4>
-                      <p className="text-gray-700">{faq.answer}</p>
-                    </div>
-                  ))}
-                </div>
+                <FAQList items={service.faqs} />
               </div>
             </div>
 
             {/* Sidebar */}
             <div className="lg:col-span-1">
-              {/* CTA Card */}
-              <div className="bg-brand-primary text-white p-8 rounded-xl mb-8 sticky top-24">
-                <MessageCircle className="w-12 h-12 mb-4 text-brand-secondary" />
-                <h3 className="text-2xl font-bold mb-3">Ready to Get Started?</h3>
-                <p className="text-white/90 mb-6">
-                  Tell us about your event and receive a personalized proposal within 24-48 hours.
-                </p>
-                <Button href="/quote" variant="secondary" size="lg" className="w-full mb-4">
-                  Get Free Quote
-                </Button>
-                <Button
-                  href="tel:877-345-7500"
-                  variant="outline"
-                  size="lg"
-                  className="w-full border-white text-white hover:bg-white hover:text-brand-primary"
-                >
-                  Call 877-345-7500
-                </Button>
-              </div>
+              <SidebarCTA icon={MessageCircle} className="sticky top-24" />
             </div>
           </div>
         </Container>
@@ -234,21 +191,7 @@ export default function ServicePage({ params }: ServicePageProps) {
       )}
 
       {/* Final CTA */}
-      <Section background="dark" spacing="md">
-        <Container>
-          <div className="max-w-3xl mx-auto text-center">
-            <h2 className="text-3xl md:text-4xl font-serif font-bold text-white mb-4">
-              Let&apos;s Create Something Perfect
-            </h2>
-            <p className="text-xl text-white/90 mb-8">
-              With over 17 years of experience and 600+ events annually, we have the expertise to make your vision a reality.
-            </p>
-            <Button href="/quote" variant="secondary" size="lg">
-              Start Planning Today
-            </Button>
-          </div>
-        </Container>
-      </Section>
+      <PageCTA />
     </>
   )
 }

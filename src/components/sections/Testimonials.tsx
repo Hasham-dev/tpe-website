@@ -1,9 +1,10 @@
 'use client'
 
 import { useState } from 'react'
-import { Star, ChevronLeft, ChevronRight, Quote } from 'lucide-react'
+import { ChevronLeft, ChevronRight, Quote } from 'lucide-react'
 import { Section, SectionHeader } from '@/components/ui/Section'
 import { Container } from '@/components/ui/Container'
+import { StarRating } from '@/components/ui/StarRating'
 import { cn } from '@/lib/utils'
 
 const testimonials = [
@@ -110,11 +111,7 @@ export function Testimonials() {
           <div className="bg-white rounded-xl shadow-xl p-8 md:p-12">
             <Quote className="w-12 h-12 text-brand-accent/20 mb-6" />
 
-            <div className="flex items-center gap-1 mb-6">
-              {[...Array(testimonials[currentIndex].rating)].map((_, i) => (
-                <Star key={i} className="w-5 h-5 fill-yellow-400 text-yellow-400" />
-              ))}
-            </div>
+            <StarRating rating={testimonials[currentIndex].rating} className="mb-6" />
 
             <p className="text-lg md:text-xl text-gray-700 mb-8 leading-relaxed">
               &ldquo;{testimonials[currentIndex].text}&rdquo;

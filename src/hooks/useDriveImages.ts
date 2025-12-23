@@ -1,24 +1,10 @@
-'use client';
+'use client'
 
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback } from 'react'
+import type { DriveImage, DriveFolder } from '@/types'
 
-export interface DriveImage {
-  id: string;
-  name: string;
-  url: string;
-  thumbnailUrl: string;
-  fallbackUrl: string;
-  mimeType: string;
-  size?: string;
-  folder?: string;
-}
-
-export interface DriveFolder {
-  id: string;
-  name: string;
-  images: DriveImage[]; // First image is cover
-  subfolders: DriveFolder[];
-}
+// Re-export types for backward compatibility
+export type { DriveImage, DriveFolder }
 
 interface UseDriveFoldersResult {
   folders: DriveFolder[];

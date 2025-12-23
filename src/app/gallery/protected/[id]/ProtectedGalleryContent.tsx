@@ -1,97 +1,22 @@
 'use client'
 
 import { useState, useEffect } from 'react'
-import Image from 'next/image'
 import Link from 'next/link'
-import { FolderOpen, Lock, ImageOff, ArrowLeft } from 'lucide-react'
+import { FolderOpen, Lock, ArrowLeft } from 'lucide-react'
 import { Section, SectionHeader } from '@/components/ui/Section'
 import { Container } from '@/components/ui/Container'
 import { Button } from '@/components/ui/Button'
 import { PasswordDialog } from '@/components/ui/PasswordDialog'
 import { Lightbox } from '@/components/ui/Lightbox'
+import { DriveImage } from '@/components/ui/DriveImage'
+import { ImageSkeleton } from '@/components/ui/Skeleton'
 import { useProtectedFolderAuth, useProtectedFolderImages } from '@/hooks/useProtectedFolder'
-import { DriveImage } from '@/hooks/useDriveImages'
+import type { DriveImage as DriveImageType } from '@/types'
 
 interface FolderInfo {
   id: string
   name: string
   coverUrl: string | null
-}
-
-// Shimmer placeholder
-function ShimmerPlaceholder() {
-  return (
-    <div className="absolute inset-0 bg-gradient-to-br from-gray-200 via-gray-100 to-gray-200">
-      <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/40 to-transparent shimmer-animation" />
-    </div>
-  )
-}
-
-// Dark shimmer for lightbox
-function DarkShimmerPlaceholder() {
-  return (
-    <div className="absolute inset-0 bg-gradient-to-br from-gray-800 via-gray-700 to-gray-800">
-      <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent shimmer-animation" />
-    </div>
-  )
-}
-
-// Image with loading state
-function DriveImageWithFallback({
-  image,
-  alt,
-  className = '',
-  darkMode = false,
-}: {
-  image: DriveImage
-  alt: string
-  className?: string
-  darkMode?: boolean
-}) {
-  const [currentSrc, setCurrentSrc] = useState(image.thumbnailUrl)
-  const [hasError, setHasError] = useState(false)
-  const [isLoading, setIsLoading] = useState(true)
-  const [fallbackAttempted, setFallbackAttempted] = useState(false)
-
-  const handleError = () => {
-    if (!fallbackAttempted && image.fallbackUrl) {
-      setCurrentSrc(image.fallbackUrl)
-      setFallbackAttempted(true)
-    } else if (!hasError) {
-      setHasError(true)
-      setIsLoading(false)
-    }
-  }
-
-  if (hasError) {
-    return (
-      <div className="w-full h-full bg-gray-800 flex items-center justify-center">
-        <ImageOff className="w-8 h-8 text-gray-600" />
-      </div>
-    )
-  }
-
-  return (
-    <>
-      {isLoading && (darkMode ? <DarkShimmerPlaceholder /> : <ShimmerPlaceholder />)}
-      <Image
-        src={currentSrc}
-        alt={alt}
-        fill
-        className={`${className} transition-opacity duration-500 ${isLoading ? 'opacity-0' : 'opacity-100'}`}
-        unoptimized
-        onError={handleError}
-        onLoad={() => setIsLoading(false)}
-      />
-    </>
-  )
-}
-
-// Image skeleton
-function ImageSkeleton() {
-  return (
-    <div className="relative overflow-hidden rounded-lg bg-gray-200 animate-pulse aspect-square" />
-  )
 }
 
 export default function ProtectedGalleryContent({ folderId }: { folderId: string }) {
@@ -155,7 +80,7 @@ export default function ProtectedGalleryContent({ folderId }: { folderId: string
   }
 
   // Lightbox handlers
-  const handleImageClick = (_image: DriveImage, index: number) => {
+  const handleImageClick = (_image: DriveImageType, index: number) => {
     setLightboxIndex(index)
     setLightboxOpen(true)
   }
@@ -252,7 +177,7 @@ export default function ProtectedGalleryContent({ folderId }: { folderId: string
                       onClick={() => handleImageClick(image, index)}
                       className="relative overflow-hidden rounded-lg group aspect-square bg-gray-100 shadow-md hover:shadow-xl transition-shadow"
                     >
-                      <DriveImageWithFallback
+                      <DriveImage
                         image={image}
                         alt={image.name}
                         className="object-cover transition-transform duration-300 group-hover:scale-105"
