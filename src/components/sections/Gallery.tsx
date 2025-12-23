@@ -6,6 +6,7 @@ import { X, ChevronLeft, FolderOpen, Images, ImageOff } from 'lucide-react'
 import { Section, SectionHeader } from '@/components/ui/Section'
 import { Container } from '@/components/ui/Container'
 import { Button } from '@/components/ui/Button'
+import { Lightbox } from '@/components/ui/Lightbox'
 import { useDriveFolders, useFolderImages, DriveFolder, DriveImage } from '@/hooks/useDriveImages'
 
 // Shimmer placeholder component
@@ -171,7 +172,7 @@ const fallbackFolders = [
 
 export function Gallery() {
   const [selectedFolder, setSelectedFolder] = useState<DriveFolder | null>(null)
-  const [lightboxImage, setLightboxImage] = useState<DriveImage | null>(null)
+  const [lightboxOpen, setLightboxOpen] = useState(false)
   const [lightboxIndex, setLightboxIndex] = useState(0)
 
   const { folders, loading: foldersLoading, error: foldersError } = useDriveFolders()
@@ -189,24 +190,9 @@ export function Gallery() {
   }
 
   // Open lightbox
-  const handleImageClick = (image: DriveImage, index: number) => {
-    setLightboxImage(image)
+  const handleImageClick = (_image: DriveImage, index: number) => {
     setLightboxIndex(index)
-  }
-
-  // Navigate lightbox
-  const handlePrevImage = () => {
-    if (lightboxIndex > 0) {
-      setLightboxIndex(lightboxIndex - 1)
-      setLightboxImage(images[lightboxIndex - 1])
-    }
-  }
-
-  const handleNextImage = () => {
-    if (lightboxIndex < images.length - 1) {
-      setLightboxIndex(lightboxIndex + 1)
-      setLightboxImage(images[lightboxIndex + 1])
-    }
+    setLightboxOpen(true)
   }
 
   // Use Drive folders or fallback
@@ -376,59 +362,14 @@ export function Gallery() {
         </div>
       )}
 
-      {/* Image Lightbox */}
-      {lightboxImage && (
-        <div
-          className="fixed inset-0 bg-black z-[60] flex items-center justify-center"
-          onClick={() => setLightboxImage(null)}
-        >
-          <button
-            className="absolute top-4 right-4 text-white/70 hover:text-white p-3 hover:bg-white/10 rounded-full z-10 transition-colors"
-            onClick={() => setLightboxImage(null)}
-          >
-            <X size={28} />
-          </button>
-
-          {/* Navigation */}
-          {lightboxIndex > 0 && (
-            <button
-              className="absolute left-4 top-1/2 -translate-y-1/2 text-white/70 hover:text-white p-3 hover:bg-white/10 rounded-full transition-colors"
-              onClick={(e) => {
-                e.stopPropagation()
-                handlePrevImage()
-              }}
-            >
-              <ChevronLeft size={32} />
-            </button>
-          )}
-          {lightboxIndex < images.length - 1 && (
-            <button
-              className="absolute right-4 top-1/2 -translate-y-1/2 text-white/70 hover:text-white p-3 hover:bg-white/10 rounded-full rotate-180 transition-colors"
-              onClick={(e) => {
-                e.stopPropagation()
-                handleNextImage()
-              }}
-            >
-              <ChevronLeft size={32} />
-            </button>
-          )}
-
-          {/* Image counter */}
-          <div className="absolute bottom-6 left-1/2 -translate-x-1/2 bg-black/50 backdrop-blur-sm px-4 py-2 rounded-full text-white/80 text-sm font-medium">
-            {lightboxIndex + 1} / {images.length}
-          </div>
-
-          <div className="relative max-w-6xl max-h-[90vh] w-full h-full p-4">
-            <DriveImageWithFallback
-              key={lightboxImage.id}
-              image={lightboxImage}
-              alt="Gallery image"
-              className="object-contain"
-              darkMode
-            />
-          </div>
-        </div>
-      )}
+      {/* Lightbox */}
+      <Lightbox
+        images={images}
+        currentIndex={lightboxIndex}
+        isOpen={lightboxOpen}
+        onClose={() => setLightboxOpen(false)}
+        onIndexChange={setLightboxIndex}
+      />
     </Section>
   )
 }
