@@ -34,20 +34,31 @@ export async function generateMetadata({ params }: EventPageProps): Promise<Meta
   }
 
   return {
-    title: `${event.title} Event Planning & Production`,
+    title: `${event.title} Event Planning & Production | Southern California`,
     description: event.longDescription,
     openGraph: {
+      title: `${event.title} Event Planning | The Perfect Event`,
+      description: event.description,
+      images: [{ url: event.image, width: 1200, height: 630, alt: `${event.title} Events` }],
+    },
+    twitter: {
+      card: 'summary_large_image',
       title: `${event.title} Event Planning | The Perfect Event`,
       description: event.description,
       images: [event.image],
     },
     keywords: [
       `${event.title.toLowerCase()} event planning`,
-      `${event.title.toLowerCase()} Southern California`,
-      'event production',
+      `${event.title.toLowerCase()} Los Angeles`,
+      `${event.title.toLowerCase()} San Diego`,
+      `${event.title.toLowerCase()} Orange County`,
+      'event production Southern California',
       'full service events',
       'event coordinator',
     ],
+    alternates: {
+      canonical: `/events/${event.slug}`,
+    },
   }
 }
 

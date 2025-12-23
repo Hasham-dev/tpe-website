@@ -12,7 +12,7 @@ export function LocalBusinessSchema() {
     description: SITE_CONFIG.description,
     url: BASE_URL,
     logo: `${BASE_URL}/images/logo.png`,
-    image: `${BASE_URL}/og-image.jpg`,
+    image: `${BASE_URL}/images/og-image.jpg`,
     telephone: SITE_CONFIG.phone,
     email: SITE_CONFIG.email,
     address: {
@@ -81,7 +81,7 @@ export function LocalBusinessSchema() {
   )
 }
 
-// Website Schema for sitelinks search box
+// Website Schema
 export function WebsiteSchema() {
   const schema = {
     '@context': 'https://schema.org',
@@ -93,14 +93,7 @@ export function WebsiteSchema() {
     publisher: {
       '@id': `${BASE_URL}/#organization`,
     },
-    potentialAction: {
-      '@type': 'SearchAction',
-      target: {
-        '@type': 'EntryPoint',
-        urlTemplate: `${BASE_URL}/search?q={search_term_string}`,
-      },
-      'query-input': 'required name=search_term_string',
-    },
+    // Note: SearchAction removed - add back when /search page is implemented
   }
 
   return (
@@ -175,7 +168,7 @@ export function ServiceSchema({
     name,
     description,
     url,
-    image: image || `${BASE_URL}/og-image.jpg`,
+    image: image || `${BASE_URL}/images/og-image.jpg`,
     provider: {
       '@id': `${BASE_URL}/#organization`,
     },
@@ -280,7 +273,7 @@ export function EventTypeSchema({
     name: `${name} Event Planning & Production`,
     description,
     url,
-    image: image ? (image.startsWith('http') ? image : `${BASE_URL}${image}`) : `${BASE_URL}/og-image.jpg`,
+    image: image ? (image.startsWith('http') ? image : `${BASE_URL}${image}`) : `${BASE_URL}/images/og-image.jpg`,
     provider: {
       '@id': `${BASE_URL}/#organization`,
     },

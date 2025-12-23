@@ -48,7 +48,7 @@ export async function generateMetadata({ params }: LocationPageProps): Promise<M
       siteName: 'The Perfect Event',
       images: [
         {
-          url: '/og-image.jpg',
+          url: '/images/og-image.jpg',
           width: 1200,
           height: 630,
           alt: `The Perfect Event - ${location.name}`,
@@ -59,7 +59,7 @@ export async function generateMetadata({ params }: LocationPageProps): Promise<M
       card: 'summary_large_image',
       title,
       description,
-      images: ['/og-image.jpg'],
+      images: ['/images/og-image.jpg'],
     },
     alternates: {
       canonical: `/locations/${location.slug}`,

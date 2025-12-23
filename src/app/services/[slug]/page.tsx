@@ -35,20 +35,31 @@ export async function generateMetadata({ params }: ServicePageProps): Promise<Me
   }
 
   return {
-    title: `${service.title} - Event Services`,
+    title: `${service.title} Services | Southern California Event Production`,
     description: service.longDescription,
     openGraph: {
+      title: `${service.title} | The Perfect Event`,
+      description: service.description,
+      images: [{ url: service.image, width: 1200, height: 630, alt: service.title }],
+    },
+    twitter: {
+      card: 'summary_large_image',
       title: `${service.title} | The Perfect Event`,
       description: service.description,
       images: [service.image],
     },
     keywords: [
       service.title.toLowerCase(),
-      'event planning',
-      'Southern California',
+      `${service.title.toLowerCase()} Los Angeles`,
+      `${service.title.toLowerCase()} San Diego`,
+      `${service.title.toLowerCase()} Orange County`,
+      'event planning Southern California',
       'event production',
       'full service events',
     ],
+    alternates: {
+      canonical: `/services/${service.slug}`,
+    },
   }
 }
 

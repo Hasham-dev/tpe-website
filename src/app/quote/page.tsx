@@ -4,12 +4,28 @@ import { Section } from '@/components/ui/Section'
 import { QuoteWizard } from '@/components/ui/QuoteWizard'
 
 export const metadata: Metadata = {
-  title: 'Get a Quote | The Perfect Event',
-  description: 'Get a personalized quote for your event. Tell us about your vision and we\'ll provide a detailed proposal within 24 hours.',
+  title: 'Get Your Free Event Quote in 24 Hours | The Perfect Event',
+  description: 'Request a free, no-obligation quote for your wedding, corporate event, or celebration. Transparent pricing with detailed proposals delivered within 24 hours. Serving all of Southern California.',
+  keywords: [
+    'event quote',
+    'wedding planning quote',
+    'corporate event pricing',
+    'event cost estimate',
+    'free event consultation',
+  ],
   openGraph: {
-    title: 'Get a Quote | The Perfect Event',
-    description: 'Get a personalized quote for your event. Tell us about your vision and we\'ll provide a detailed proposal within 24 hours.',
+    title: 'Get Your Free Event Quote | The Perfect Event',
+    description: 'Request a free quote for your event. Detailed proposals within 24 hours, no obligation.',
     images: ['/images/og-image.jpg'],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Get Your Free Event Quote | The Perfect Event',
+    description: 'Request a free quote for your event. Response within 24 hours.',
+    images: ['/images/og-image.jpg'],
+  },
+  alternates: {
+    canonical: '/quote',
   },
 }
 

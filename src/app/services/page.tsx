@@ -9,12 +9,30 @@ import { Breadcrumb } from '@/components/ui/Breadcrumb'
 import { SERVICES_DATA } from '@/lib/services'
 
 export const metadata: Metadata = {
-  title: 'Our Services - Full-Service Event Production',
-  description: 'Discover our comprehensive event services: coordination, venue booking, entertainment, lighting, sound, media production, transportation, security, and finishing touches. Everything under one roof.',
+  title: 'Event Services | DJ, Lighting, Coordination & More | Southern California',
+  description: 'Full-service event production: coordination, venue booking, DJ/entertainment, lighting, sound, photography, transportation & more. One company handles everything. Get your free quote today.',
+  keywords: [
+    'event services',
+    'DJ services',
+    'event lighting',
+    'event coordination',
+    'wedding services',
+    'corporate event services',
+    'Southern California event company',
+  ],
   openGraph: {
-    title: 'Our Services - Full-Service Event Production | The Perfect Event',
+    title: 'Event Services | The Perfect Event',
     description: 'Comprehensive event production services including coordination, entertainment, AV, transportation, and more. One company handles everything.',
-    images: ['/images/services/coordination.jpg'],
+    images: ['/images/og-image.jpg'],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Event Services | The Perfect Event',
+    description: 'Full-service event production: DJ, lighting, coordination & more.',
+    images: ['/images/og-image.jpg'],
+  },
+  alternates: {
+    canonical: '/services',
   },
 }
 

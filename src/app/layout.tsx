@@ -81,7 +81,7 @@ export const metadata: Metadata = {
     description: "Southern California's premier event production company. One company handles everything - coordination, entertainment, AV, transportation & more.",
     images: [
       {
-        url: '/og-image.jpg',
+        url: '/images/og-image.jpg',
         width: 1200,
         height: 630,
         alt: 'The Perfect Event - Full-Service Event Production',
@@ -92,7 +92,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: 'Full-Service Event Planning & Production | The Perfect Event',
     description: "Southern California's premier event production company. 600+ events yearly.",
-    images: ['/og-image.jpg'],
+    images: ['/images/og-image.jpg'],
   },
   robots: {
     index: true,

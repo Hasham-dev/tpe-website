@@ -5,12 +5,28 @@ import { Section } from '@/components/ui/Section'
 import { TEAM_MEMBERS } from '@/lib/constants'
 
 export const metadata: Metadata = {
-  title: 'Our Team | The Perfect Event',
-  description: 'Meet the dedicated professionals behind The Perfect Event. Our experienced team brings passion, expertise, and creativity to every event we produce.',
+  title: 'Meet Our Team | 200+ Event Professionals | The Perfect Event',
+  description: 'Meet the 200+ dedicated professionals behind The Perfect Event. Experienced event planners, DJs, coordinators, and production crew serving Southern California since 2007.',
+  keywords: [
+    'event planning team',
+    'wedding planners',
+    'event coordinators',
+    'DJ team',
+    'event production crew',
+  ],
   openGraph: {
-    title: 'Our Team | The Perfect Event',
-    description: 'Meet the dedicated professionals behind The Perfect Event. Our experienced team brings passion, expertise, and creativity to every event we produce.',
+    title: 'Meet Our Team | The Perfect Event',
+    description: 'Meet the dedicated professionals behind 600+ events yearly. 200+ team members ready to make your event perfect.',
     images: ['/images/og-image.jpg'],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Meet Our Team | The Perfect Event',
+    description: 'Meet the dedicated professionals behind 600+ events yearly.',
+    images: ['/images/og-image.jpg'],
+  },
+  alternates: {
+    canonical: '/team',
   },
 }
 

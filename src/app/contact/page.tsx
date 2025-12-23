@@ -6,12 +6,28 @@ import { SITE_CONFIG } from '@/lib/constants'
 import { Phone, Mail, MapPin, Clock } from 'lucide-react'
 
 export const metadata: Metadata = {
-  title: 'Contact Us | The Perfect Event',
-  description: 'Get in touch with The Perfect Event. Call us at 877-345-7500 or fill out our contact form. We serve Los Angeles, Orange County, San Diego, and beyond.',
+  title: 'Contact Us | Get Your Free Event Quote | The Perfect Event',
+  description: 'Contact The Perfect Event at 877-345-7500. Free consultations for weddings, corporate events, and festivals. Serving Los Angeles, Orange County, San Diego & beyond. Response within 24 hours.',
+  keywords: [
+    'contact event planner',
+    'event planning consultation',
+    'wedding planner contact',
+    'corporate event quote',
+    'Los Angeles event company',
+  ],
   openGraph: {
-    title: 'Contact Us | The Perfect Event',
-    description: 'Get in touch with The Perfect Event. Call us at 877-345-7500 or fill out our contact form. We serve Los Angeles, Orange County, San Diego, and beyond.',
+    title: 'Contact The Perfect Event | Free Consultation',
+    description: 'Get in touch for a free event consultation. Call 877-345-7500 or fill out our form. Response within 24 hours.',
     images: ['/images/og-image.jpg'],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Contact The Perfect Event | Free Consultation',
+    description: 'Get in touch for a free event consultation. Call 877-345-7500.',
+    images: ['/images/og-image.jpg'],
+  },
+  alternates: {
+    canonical: '/contact',
   },
 }
 
