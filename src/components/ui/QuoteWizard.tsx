@@ -162,7 +162,7 @@ export function QuoteWizard() {
       <div className="mb-12">
         <div className="flex items-center justify-between mb-4">
           {STEPS.map((step, index) => (
-            <div key={step.number} className="flex-1 flex items-center">
+            <div key={step.number} className={cn('flex items-center', index < STEPS.length - 1 ? 'flex-1' : '')}>
               <div className="flex flex-col items-center relative">
                 <div
                   className={cn(
@@ -178,10 +178,10 @@ export function QuoteWizard() {
                     step.number
                   )}
                 </div>
-                <div className="hidden md:block absolute top-12 whitespace-nowrap">
+                <div className="hidden md:block absolute top-12 left-1/2 -translate-x-1/2 whitespace-nowrap">
                   <p
                     className={cn(
-                      'text-xs font-medium',
+                      'text-xs font-medium text-center',
                       currentStep >= step.number ? 'text-brand-accent' : 'text-gray-400'
                     )}
                   >
