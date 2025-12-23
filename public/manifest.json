@@ -1,0 +1,16 @@
+{
+  "name": "The Perfect Event",
+  "short_name": "TPE",
+  "description": "Southern California's Premier Full-Service Event Production Company",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#1a1a2e",
+  "icons": [
+    {
+      "src": "/images/logo.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    }
+  ]
+}

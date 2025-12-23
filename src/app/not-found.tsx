@@ -1,4 +1,3 @@
-import Link from 'next/link'
 import { Container } from '@/components/ui/Container'
 import { Section } from '@/components/ui/Section'
 import { Button } from '@/components/ui/Button'
@@ -18,15 +17,11 @@ export default function NotFound() {
             Sorry, we couldn&apos;t find the page you&apos;re looking for. It may have been moved or no longer exists.
           </p>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-            <Button asChild>
-              <Link href="/">
-                Go Home
-              </Link>
+            <Button href="/">
+              Go Home
             </Button>
-            <Button variant="outline" asChild>
-              <Link href="/contact">
-                Contact Us
-              </Link>
+            <Button variant="outline" href="/contact">
+              Contact Us
             </Button>
           </div>
         </div>
