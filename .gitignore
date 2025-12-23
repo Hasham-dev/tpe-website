@@ -42,3 +42,7 @@ next-env.d.ts
 
 # Sanity
 /sanity/dist
+*.json
+
+# Google service account key
+theperfectevent-*.json
