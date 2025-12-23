@@ -1,4 +1,5 @@
 import { NextResponse } from 'next/server';
+// @ts-ignore
 import { listDriveImages } from '@/lib/google-drive';
 
 export const dynamic = 'force-dynamic'; // Disable caching at the route level

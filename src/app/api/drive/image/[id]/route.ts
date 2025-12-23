@@ -57,6 +57,7 @@ export async function GET(
     // Check cache first
     const cached = imageCache.get(cacheKey);
     if (cached && Date.now() - cached.timestamp < CACHE_DURATION) {
+      // @ts-ignore
       return new NextResponse(cached.data, {
         headers: {
           'Content-Type': cached.mimeType,
