@@ -302,9 +302,9 @@ export const NAV_LINKS = [
   { href: '/', label: 'Home' },
   { href: '/#services', label: 'Services' },
   { href: '/#about', label: 'Our Story' },
-  { href: '/#events', label: 'Event Types' },
   { href: '/team', label: 'Team' },
   { href: '/portfolio', label: 'Portfolio' },
+  { href: '/gallery', label: 'Gallery' },
   { href: '/blog', label: 'Blog' },
   { href: '/#contact', label: 'Contact' },
 ]
