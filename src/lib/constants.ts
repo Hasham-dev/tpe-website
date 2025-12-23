@@ -284,6 +284,18 @@ export const TEAM_MEMBERS = [
     image: '/images/team/lily-ballard.png',
     bio: 'Supporting event execution with attention to every detail.',
   },
+  {
+    name: 'Charlotte Thompson',
+    position: 'Assistant Event Director',
+    image: '/images/team/charlotte_thompson.jpeg',
+    bio: 'Supporting event execution with attention to every detail.',
+  },
+  {
+    name: 'Sascha Smith',
+    position: 'Assistant Event Director',
+    image: '/images/team/sascha_smith.jpeg',
+    bio: 'Supporting event execution with attention to every detail.',
+  },
 ]
 
 export const NAV_LINKS = [
@@ -291,6 +303,7 @@ export const NAV_LINKS = [
   { href: '/#services', label: 'Services' },
   { href: '/#about', label: 'Our Story' },
   { href: '/#events', label: 'Event Types' },
+  { href: '/team', label: 'Team' },
   { href: '/portfolio', label: 'Portfolio' },
   { href: '/blog', label: 'Blog' },
   { href: '/#contact', label: 'Contact' },
