@@ -2,88 +2,19 @@
 
 import { useState } from 'react'
 import Image from 'next/image'
-import { X, ChevronLeft, FolderOpen, Images, ImageOff } from 'lucide-react'
+import { FolderOpen, Images } from 'lucide-react'
 import { Section, SectionHeader } from '@/components/ui/Section'
 import { Container } from '@/components/ui/Container'
 import { Button } from '@/components/ui/Button'
-import { Lightbox } from '@/components/ui/Lightbox'
-import { useDriveFolders, useFolderImages, DriveFolder, DriveImage } from '@/hooks/useDriveImages'
+import { FolderModal } from '@/components/ui/FolderModal'
+import { useDriveFolders, useFolderImages, DriveFolder } from '@/hooks/useDriveImages'
 
 // Shimmer placeholder component
-function ShimmerPlaceholder({ className = '' }: { className?: string }) {
+function ShimmerPlaceholder() {
   return (
-    <div className={`absolute inset-0 bg-gradient-to-br from-gray-200 via-gray-100 to-gray-200 ${className}`}>
+    <div className="absolute inset-0 bg-gradient-to-br from-gray-200 via-gray-100 to-gray-200">
       <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/40 to-transparent shimmer-animation" />
     </div>
-  )
-}
-
-// Dark shimmer for modal/lightbox
-function DarkShimmerPlaceholder({ className = '' }: { className?: string }) {
-  return (
-    <div className={`absolute inset-0 bg-gradient-to-br from-gray-800 via-gray-700 to-gray-800 ${className}`}>
-      <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent shimmer-animation" />
-    </div>
-  )
-}
-
-// Image component with fallback support and blur loading
-function DriveImageWithFallback({
-  image,
-  alt,
-  fill = true,
-  className = '',
-  sizes,
-  darkMode = false,
-}: {
-  image: DriveImage
-  alt: string
-  fill?: boolean
-  className?: string
-  sizes?: string
-  darkMode?: boolean
-}) {
-  const [currentSrc, setCurrentSrc] = useState(image.thumbnailUrl)
-  const [hasError, setHasError] = useState(false)
-  const [isLoading, setIsLoading] = useState(true)
-  const [fallbackAttempted, setFallbackAttempted] = useState(false)
-
-  const handleError = () => {
-    if (!fallbackAttempted && image.fallbackUrl) {
-      setCurrentSrc(image.fallbackUrl)
-      setFallbackAttempted(true)
-    } else if (!hasError) {
-      setHasError(true)
-      setIsLoading(false)
-    }
-  }
-
-  const handleLoad = () => {
-    setIsLoading(false)
-  }
-
-  if (hasError) {
-    return (
-      <div className="w-full h-full bg-gray-800 flex items-center justify-center">
-        <ImageOff className="w-8 h-8 text-gray-600" />
-      </div>
-    )
-  }
-
-  return (
-    <>
-      {isLoading && (darkMode ? <DarkShimmerPlaceholder /> : <ShimmerPlaceholder />)}
-      <Image
-        src={currentSrc}
-        alt={alt}
-        fill={fill}
-        className={`${className} transition-opacity duration-500 ${isLoading ? 'opacity-0' : 'opacity-100'}`}
-        sizes={sizes}
-        unoptimized
-        onError={handleError}
-        onLoad={handleLoad}
-      />
-    </>
   )
 }
 
@@ -114,10 +45,6 @@ function CoverImage({
     }
   }
 
-  const handleLoad = () => {
-    setIsLoading(false)
-  }
-
   if (hasError) {
     return (
       <div className="w-full h-full bg-gradient-to-br from-gray-100 to-gray-200 flex items-center justify-center">
@@ -136,7 +63,7 @@ function CoverImage({
         className={`${className} transition-opacity duration-500 ${isLoading ? 'opacity-0' : 'opacity-100'}`}
         unoptimized
         onError={handleError}
-        onLoad={handleLoad}
+        onLoad={() => setIsLoading(false)}
       />
     </>
   )
@@ -155,13 +82,6 @@ function FolderSkeleton() {
   )
 }
 
-// Skeleton component for image grid
-function ImageSkeleton() {
-  return (
-    <div className="relative overflow-hidden rounded-lg bg-white/10 animate-pulse aspect-square" />
-  )
-}
-
 // Fallback folders if Drive API fails
 const fallbackFolders = [
   { id: '1', name: 'Weddings', coverSrc: '/images/gallery/wedding-1.jpg' },
@@ -172,8 +92,6 @@ const fallbackFolders = [
 
 export function Gallery() {
   const [selectedFolder, setSelectedFolder] = useState<DriveFolder | null>(null)
-  const [lightboxOpen, setLightboxOpen] = useState(false)
-  const [lightboxIndex, setLightboxIndex] = useState(0)
 
   const { folders, loading: foldersLoading, error: foldersError } = useDriveFolders()
   const { images, loading: imagesLoading, fetchFolder } = useFolderImages()
@@ -187,12 +105,6 @@ export function Gallery() {
   // Close folder modal
   const handleCloseFolder = () => {
     setSelectedFolder(null)
-  }
-
-  // Open lightbox
-  const handleImageClick = (_image: DriveImage, index: number) => {
-    setLightboxIndex(index)
-    setLightboxOpen(true)
   }
 
   // Use Drive folders or fallback
@@ -295,80 +207,14 @@ export function Gallery() {
         </div>
       </Container>
 
-      {/* Folder Modal - Shows images from selected folder */}
-      {selectedFolder && (
-        <div className="fixed inset-0 bg-black/95 z-50 overflow-y-auto">
-          <div className="min-h-screen p-4 md:p-8">
-            {/* Header */}
-            <div className="flex items-center justify-between mb-8 sticky top-0 bg-black/80 backdrop-blur-sm -mx-4 md:-mx-8 px-4 md:px-8 py-4 z-10">
-              <button
-                onClick={handleCloseFolder}
-                className="flex items-center text-white hover:text-brand-primary transition-colors"
-              >
-                <ChevronLeft className="w-6 h-6 mr-2" />
-                <span className="text-lg font-medium">Back</span>
-              </button>
-              <h2 className="text-white text-xl font-bold">{selectedFolder.name}</h2>
-              <button
-                onClick={handleCloseFolder}
-                className="text-white p-2 hover:bg-white/10 rounded-full transition-colors"
-              >
-                <X size={24} />
-              </button>
-            </div>
-
-            {/* Loading Skeletons for images */}
-            {imagesLoading && (
-              <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-3">
-                {[...Array(15)].map((_, i) => (
-                  <ImageSkeleton key={i} />
-                ))}
-              </div>
-            )}
-
-            {/* Images Grid */}
-            {!imagesLoading && images.length > 0 && (
-              <>
-                <p className="text-white/50 text-sm mb-4">{images.length} photos</p>
-                <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-3">
-                  {images.map((image, index) => (
-                    <button
-                      key={image.id}
-                      onClick={() => handleImageClick(image, index)}
-                      className="relative overflow-hidden rounded-lg group aspect-square bg-white/5"
-                    >
-                      <DriveImageWithFallback
-                        image={image}
-                        alt={image.name}
-                        className="object-cover transition-all duration-300 group-hover:scale-105"
-                        darkMode
-                      />
-                      <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors" />
-                      <div className="absolute inset-0 ring-0 group-hover:ring-2 ring-white/50 rounded-lg transition-all" />
-                    </button>
-                  ))}
-                </div>
-              </>
-            )}
-
-            {/* No images */}
-            {!imagesLoading && images.length === 0 && (
-              <div className="flex flex-col items-center justify-center py-20 text-white/40">
-                <FolderOpen className="w-20 h-20 mb-4" />
-                <p className="text-lg">No images in this album</p>
-              </div>
-            )}
-          </div>
-        </div>
-      )}
-
-      {/* Lightbox */}
-      <Lightbox
+      {/* Folder Modal */}
+      <FolderModal
+        isOpen={!!selectedFolder}
+        folderName={selectedFolder?.name || ''}
         images={images}
-        currentIndex={lightboxIndex}
-        isOpen={lightboxOpen}
-        onClose={() => setLightboxOpen(false)}
-        onIndexChange={setLightboxIndex}
+        loading={imagesLoading}
+        onClose={handleCloseFolder}
+        hoverAccentClass="hover:text-brand-primary"
       />
     </Section>
   )
