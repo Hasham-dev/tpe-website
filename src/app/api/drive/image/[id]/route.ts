@@ -57,8 +57,7 @@ export async function GET(
     // Check cache first
     const cached = imageCache.get(cacheKey);
     if (cached && Date.now() - cached.timestamp < CACHE_DURATION) {
-      // @ts-ignore
-      return new NextResponse(cached.data, {
+      return new NextResponse(new Uint8Array(cached.data), {
         headers: {
           'Content-Type': cached.mimeType,
           'Cache-Control': 'public, max-age=86400, s-maxage=604800',
@@ -101,7 +100,7 @@ export async function GET(
     }
     imageCache.set(cacheKey, { data: buffer, mimeType, timestamp: Date.now() });
 
-    return new NextResponse(buffer, {
+    return new NextResponse(new Uint8Array(buffer), {
       headers: {
         'Content-Type': mimeType,
         'Cache-Control': 'public, max-age=86400, s-maxage=604800',

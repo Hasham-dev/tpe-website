@@ -335,3 +335,14 @@ export async function getDriveImage(fileId: string): Promise<DriveImage | null> 
 export function clearDriveCache(): void {
   cache.clear();
 }
+
+/**
+ * List all images from the root Drive folder
+ * Returns a flat list of images for the gallery
+ */
+export async function listDriveImages(): Promise<DriveImage[]> {
+  const rootFolderId = process.env.GOOGLE_DRIVE_FOLDER_ID;
+  if (!rootFolderId) throw new Error('GOOGLE_DRIVE_FOLDER_ID is not configured');
+
+  return getFolderImages(rootFolderId);
+}
