@@ -6,6 +6,7 @@ import { Footer } from '@/components/layout/Footer'
 import { GoogleAnalytics } from '@/components/analytics/GoogleAnalytics'
 import { LocalBusinessSchema, WebsiteSchema } from '@/components/seo/StructuredData'
 import { CookieConsent } from '@/components/ui/CookieConsent'
+import { ScrollToTop } from '@/components/ui/ScrollToTop'
 
 const montserrat = Montserrat({
   subsets: ['latin'],
@@ -129,6 +130,7 @@ export default function RootLayout({
         <main>{children}</main>
         <Footer />
         <CookieConsent />
+        <ScrollToTop />
       </body>
     </html>
   )
