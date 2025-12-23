@@ -6,6 +6,7 @@ import { Container } from '@/components/ui/Container'
 import { Section } from '@/components/ui/Section'
 import { Button } from '@/components/ui/Button'
 import { ImageGallery } from '@/components/ui/ImageGallery'
+import { DriveImageGallery } from '@/components/ui/DriveImageGallery'
 import { caseStudies, getCaseStudy } from '@/lib/portfolio'
 
 interface CaseStudyPageProps {
@@ -147,7 +148,15 @@ export default function CaseStudyPage({ params }: CaseStudyPageProps) {
           <h2 className="text-3xl font-serif font-bold mb-8 text-center">
             Event Gallery
           </h2>
-          <ImageGallery images={caseStudy.images} alt={caseStudy.title} />
+          {caseStudy.driveFolderId ? (
+            <DriveImageGallery
+              folderId={caseStudy.driveFolderId}
+              alt={caseStudy.title}
+              fallbackImages={caseStudy.images}
+            />
+          ) : (
+            <ImageGallery images={caseStudy.images} alt={caseStudy.title} />
+          )}
         </Container>
       </Section>
 

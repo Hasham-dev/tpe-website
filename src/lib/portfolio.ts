@@ -9,7 +9,8 @@ export interface CaseStudy {
   challenge: string
   solution: string
   services: string[]
-  images: string[]
+  images: string[] // Local fallback images
+  driveFolderId?: string // Google Drive folder ID for dynamic images
   testimonial: {
     quote: string
     author: string
